@@ -1,0 +1,2 @@
+# gibdd-osmotr
+version.json
