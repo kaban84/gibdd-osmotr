@@ -1,6 +1,6 @@
 {
-  "versionCode": 4,
-  "versionName": "1.4",
+  "versionCode": 5,
+  "versionName": "1.5",
   "apkUrl": "https://github.com/kaban84/gibdd-osmotr/releases/latest/download/app-release.apk",
-  "changeLog": "• Описание ваших доработок"
+  "changeLog": "• Исправлены критические ошибки"
 }
