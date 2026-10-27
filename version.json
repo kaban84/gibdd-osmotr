@@ -1,9 +1,9 @@
 {
-  "versionCode": 9,
-  "versionName": "1.9",
+  "versionCode": 2,
+  "versionName": "2.0",
   "apkUrl": "https://github.com/kaban84/gibdd-osmotr/releases/latest/download/app-release.apk",
   "changeLog": [
-    "добавлен раздел самоходная техника
+    "добавлен раздел самоходная техника"
     "добавлен чекбокс информационного письма в министерства транспорта и ространснадзора"
   ]
 }
