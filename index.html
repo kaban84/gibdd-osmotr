@@ -327,6 +327,12 @@
       line-height: 1.35;
       font-weight: 500;
     }
+    .viol-list li.critical {
+      background: #fef2f2;
+      color: #7f1d1d;
+      border-left: 4px solid #b91c1c;
+      font-weight: 700;
+    }
     .viol-list li.none {
       background: #ecfdf5;
       color: #065f46;
@@ -387,6 +393,33 @@
     summary { font-size: 14px; color: #1d4ed8; cursor: pointer; font-weight: 700; padding: 4px 0; }
     .sig-preview { max-width: 200px; margin-top: 8px; border: 1.5px solid var(--border-ui); border-radius: 8px; padding: 6px; background: #fff; }
     .sig-preview img { max-width: 100%; display: block; }
+
+    /* Чипы для комментариев */
+    .chip-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .chip {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      padding: 6px 10px;
+      border-radius: 16px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .chip:active { background: #e2e8f0; }
+
+    /* Категория прав (автовыбор) */
+    .cat-hint {
+      font-size: 12px;
+      color: #2563eb;
+      margin-top: 4px;
+      font-weight: 600;
+    }
 
     /* --- НИЖНЯЯ ПАНЕЛЬ ДЕЙСТВИЙ --- */
     .actionbar {
@@ -487,7 +520,7 @@
       padding: 9px;
     }
 
-    /* --- МОДАЛЬНОЕ ОКНО СТАТЕЙ КОАП --- */
+    /* --- МОДАЛЬНОЕ ОКНО СТАТЕЙ КОАП И АРХИВА --- */
     .koap-modal-overlay {
       display: none;
       position: fixed;
@@ -511,6 +544,8 @@
       width: 100%;
       padding: 18px 16px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      max-height: 90vh;
+      overflow-y: auto;
     }
     .koap-modal-title {
       font-size: 15px;
@@ -544,6 +579,18 @@
       margin-top: 12px;
     }
 
+    .hist-item {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+    .hist-item:active { background: #e2e8f0; }
+    .hist-title { font-weight: 700; font-size: 14px; color: #0f172a; }
+    .hist-sub { font-size: 12px; color: #64748b; margin-top: 4px; }
+
     #printArea { display: none; }
 
     /* =========================================================
@@ -561,11 +608,9 @@
         -webkit-user-select: auto;
         user-select: auto;
       }
-
-      .wrap, .actionbar, .msg, .koap-modal-overlay, #sigDrawModal, .noprint {
+      .wrap, .actionbar, .msg, .koap-modal-overlay, #sigDrawModal, #authModal, .noprint {
         display: none !important;
       }
-
       #printArea {
         display: block !important;
         width: 100% !important;
@@ -574,112 +619,42 @@
         margin: 0 auto;
         box-sizing: border-box;
       }
-
-      .p-header {
-        text-align: center;
-        margin-bottom: 15px;
-      }
-      .p-header h1 {
-        font-size: 14pt;
-        font-weight: bold;
-        text-transform: uppercase;
-        margin: 0 0 4px 0;
-      }
-      .p-header h2 {
-        font-size: 12pt;
-        font-weight: bold;
-        margin: 0 0 3px 0;
-      }
-      .p-header h3 {
-        font-size: 11pt;
-        font-style: italic;
-        margin: 0;
-      }
-
-      .p-info-block {
-        width: 100%;
-        margin-bottom: 12px;
-        border-collapse: collapse;
-      }
-      .p-info-block td {
-        padding: 2.5px 0;
-        vertical-align: top;
-        font-size: 11pt;
-      }
-      .p-info-block td.p-lbl {
-        width: 250px;
-        font-weight: bold;
-      }
-
-      .p-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 12px;
-        page-break-inside: auto;
-      }
-      .p-table tr {
-        page-break-inside: avoid;
-        page-break-after: auto;
-      }
-      .p-table th, .p-table td {
-        border: 1px solid #000;
-        padding: 5px 6px;
-        font-size: 10pt;
-        text-align: left;
-      }
-      .p-table th {
-        background: #f2f2f2 !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-        text-align: center;
-        font-weight: bold;
-      }
-
-      .p-badge-viol {
-        font-weight: bold;
-        color: #000;
-      }
-
-      .p-section-title {
-        font-size: 11.5pt;
-        font-weight: bold;
-        margin: 10px 0 4px 0;
-        text-transform: uppercase;
-        border-bottom: 1px solid #000;
-        padding-bottom: 2px;
-      }
-
-      .p-summary-text {
-        font-size: 10.5pt;
-        margin-bottom: 10px;
-      }
-
-      .p-sig-row {
-        margin-top: 25px;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        page-break-inside: avoid;
-      }
-      .p-sig-block {
-        display: flex;
-        align-items: flex-end;
-        gap: 12px;
-      }
-      .p-sig-img {
-        max-height: 48px;
-        max-width: 150px;
-        border-bottom: 1px solid #000;
-      }
-      .p-sig-line {
-        width: 140px;
-        border-bottom: 1px solid #000;
-        display: inline-block;
-      }
+      .p-header { text-align: center; margin-bottom: 15px; }
+      .p-header h1 { font-size: 14pt; font-weight: bold; text-transform: uppercase; margin: 0 0 4px 0; }
+      .p-header h2 { font-size: 12pt; font-weight: bold; margin: 0 0 3px 0; }
+      .p-header h3 { font-size: 11pt; font-style: italic; margin: 0; }
+      .p-info-block { width: 100%; margin-bottom: 12px; border-collapse: collapse; }
+      .p-info-block td { padding: 2.5px 0; vertical-align: top; font-size: 11pt; }
+      .p-info-block td.p-lbl { width: 250px; font-weight: bold; }
+      .p-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; page-break-inside: auto; }
+      .p-table tr { page-break-inside: avoid; page-break-after: auto; }
+      .p-table th, .p-table td { border: 1px solid #000; padding: 5px 6px; font-size: 10pt; text-align: left; }
+      .p-table th { background: #f2f2f2 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; text-align: center; font-weight: bold; }
+      .p-badge-viol { font-weight: bold; color: #000; }
+      .p-section-title { font-size: 11.5pt; font-weight: bold; margin: 10px 0 4px 0; text-transform: uppercase; border-bottom: 1px solid #000; padding-bottom: 2px; }
+      .p-summary-text { font-size: 10.5pt; margin-bottom: 10px; }
+      .p-sig-row { margin-top: 25px; display: flex; justify-content: space-between; align-items: flex-end; page-break-inside: avoid; }
+      .p-sig-block { display: flex; align-items: flex-end; gap: 12px; }
+      .p-sig-img { max-height: 48px; max-width: 150px; border-bottom: 1px solid #000; }
+      .p-sig-line { width: 140px; border-bottom: 1px solid #000; display: inline-block; }
     }
   </style>
 </head>
 <body>
+
+<!-- ОКНО АВТОРИЗАЦИИ (ЗАЩИТА ПАРОЛЕМ) -->
+<div id="authModal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#0f274a;z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;">
+  <div style="background:#ffffff;border-radius:14px;max-width:340px;width:100%;padding:24px;text-align:center;box-shadow:0 10px 25px rgba(0,0,0,0.3);">
+    <div style="font-size:32px;margin-bottom:8px;">🔒</div>
+    <div style="font-size:16px;font-weight:800;color:#1a365d;margin-bottom:6px;">Служебный доступ</div>
+    <div style="font-size:12.5px;color:#64748b;margin-bottom:16px;">Введите пароль для работы с актами осмотра</div>
+    <label for="appPassInput" style="display:none;">Пароль служебного доступа</label>
+    <input type="password" id="appPassInput" aria-label="Пароль служебного доступа" placeholder="Введите пароль" style="width:100%;font-size:16px;text-align:center;padding:11px;border:1.5px solid #cbd5e1;border-radius:10px;margin-bottom:12px;outline:none;">
+    <button type="button" id="btnAppLogin" style="width:100%;background:#2563eb;color:#fff;font-size:14px;font-weight:700;padding:12px;border:none;border-radius:10px;cursor:pointer;">Войти</button>
+    <div id="authError" style="color:#dc2626;font-size:12px;font-weight:700;margin-top:8px;display:none;">Неверный пароль</div>
+  </div>
+</div>
+
 <div class="wrap">
 
   <div class="doc-header">
@@ -718,13 +693,18 @@
         <option value="self_propelled">Самоходная техника</option>
       </select>
     </div>
-    <div class="row"><label for="f_vu">Водительское удостоверение / УТМ (серия, номер, категории)</label><input type="text" id="f_vu"></div>
+    <div class="row">
+      <label for="f_vu">Водительское удостоверение / УТМ (серия, номер)</label>
+      <input type="text" id="f_vu">
+      <div class="cat-hint" id="catHint">Требуемая категория: B</div>
+    </div>
     <div class="row"><label for="f_ownertype">Собственник ТС</label>
       <select id="f_ownertype">
         <option value="personal">Личное пользование</option>
         <option value="org" selected>Юридическое лицо</option>
         <option value="ip">Индивидуальный предприниматель</option>
         <option value="gov">Государственная организация</option>
+        <option value="phys_com">Физ. лицо (коммерческое использование)</option>
       </select>
     </div>
     <div class="row"><label id="f_ownername_label" for="f_ownername">Наименование собственника</label><input type="text" id="f_ownername"></div>
@@ -750,7 +730,7 @@
     </div>
 
     <!-- Блок межведомственного информирования -->
-    <div class="row">
+    <div class="row" id="blockInteragency">
       <label>Информирование контрольно-надзорных органов</label>
       <div style="display:flex; flex-direction:column; gap:8px; margin-top:6px;">
         <label style="display:flex; align-items:flex-start; gap:10px; padding:10px 12px; background:#f8fafc; border:1.5px solid var(--border-ui); border-radius:10px; cursor:pointer; font-size:13.5px; font-weight:600; color:#1e293b;">
@@ -761,39 +741,59 @@
           <input type="checkbox" id="f_info_rostrans" style="width:20px; height:20px; min-height:20px; margin-top:1px; flex-shrink:0;">
           <span>Информация в МТУ Ространснадзора по УрФО</span>
         </label>
+        <!-- Галочка Иное -->
+        <label style="display:flex; align-items:flex-start; gap:10px; padding:10px 12px; background:#f8fafc; border:1.5px solid var(--border-ui); border-radius:10px; cursor:pointer; font-size:13.5px; font-weight:600; color:#1e293b;">
+          <input type="checkbox" id="f_info_other_check" style="width:20px; height:20px; min-height:20px; margin-top:1px; flex-shrink:0;">
+          <span>Иное (указать организацию)</span>
+        </label>
+        <div id="row_info_other" style="display:none; margin-top: -4px;">
+          <label for="f_info_other_text" style="display:none;">Иная организация</label>
+          <input type="text" id="f_info_other_text" aria-label="Наименование иной организации" placeholder="Например: УГАДН, Прокуратура и т.д." style="font-size: 14px; padding: 10px; border-color: #cbd5e1;">
+        </div>
       </div>
     </div>
 
     <div class="row">
       <label for="f_inspcomment">Комментарий инспектора</label>
       <textarea id="f_inspcomment" rows="2" placeholder="Дополнительные замечания по акту"></textarea>
-    </div>
-    <div class="row">
-      <label>Аварийность на предприятии в текущем году</label>
-      <div class="radio-row" id="accidentRadio">
-        <label class="r" data-v="done">Анализ проводился</label>
-        <label class="r sel" data-v="no">Не проводился</label>
+      <!-- Чипы для комментариев -->
+      <div class="chip-container">
+        <span class="chip" onclick="addChipText('ТС помещено на спецстоянку')">Спецстоянка</span>
+        <span class="chip" onclick="addChipText('Водитель отстранен от управления')">Отстранен от упр.</span>
+        <span class="chip" onclick="addChipText('Составлен рапорт')">Рапорт</span>
+        <span class="chip" onclick="addChipText('ДТП с пострадавшими')">ДТП с постр.</span>
       </div>
     </div>
-    <div class="row" id="rowAccCount" style="display:none">
-      <label for="f_acccount">Количество ДТП за текущий год</label>
-      <input type="number" id="f_acccount" min="0" inputmode="numeric">
-    </div>
-    <div class="row">
-      <label>Профилактические визиты/беседы в текущем году</label>
-      <div class="radio-row" id="talksRadio">
-        <label class="r" data-v="done">Проводились</label>
-        <label class="r sel" data-v="no">Не проводились</label>
+
+    <div id="blockAccidentAnalytics">
+      <div class="row">
+        <label>Аварийность на предприятии в текущем году</label>
+        <div class="radio-row" id="accidentRadio">
+          <label class="r" data-v="done">Анализ проводился</label>
+          <label class="r sel" data-v="no">Не проводился</label>
+        </div>
+      </div>
+      <div class="row" id="rowAccCount" style="display:none">
+        <label for="f_acccount">Количество ДТП за текущий год</label>
+        <input type="number" id="f_acccount" min="0" inputmode="numeric">
+      </div>
+      <div class="row">
+        <label>Профилактические визиты/беседы в текущем году</label>
+        <div class="radio-row" id="talksRadio">
+          <label class="r" data-v="done">Проводились</label>
+          <label class="r sel" data-v="no">Не проводились</label>
+        </div>
+      </div>
+      <div class="row" id="rowTalkCount" style="display:none">
+        <label for="f_talkcount">Количество профилактических визитов/бесед за текущий год</label>
+        <input type="number" id="f_talkcount" min="0" inputmode="numeric">
+      </div>
+      <div class="row" id="rowTechCount">
+        <label for="f_techcount">За предприятием зарегистрировано транспортных средств</label>
+        <input type="number" id="f_techcount" min="0" inputmode="numeric">
       </div>
     </div>
-    <div class="row" id="rowTalkCount" style="display:none">
-      <label for="f_talkcount">Количество профилактических визитов/бесед за текущий год</label>
-      <input type="number" id="f_talkcount" min="0" inputmode="numeric">
-    </div>
-    <div class="row" id="rowTechCount">
-      <label for="f_techcount">За предприятием зарегистрировано транспортных средств</label>
-      <input type="number" id="f_techcount" min="0" inputmode="numeric">
-    </div>
+
     <div class="row">
       <label for="f_pto">Адрес ПТО (документы и контроль)</label>
       <input type="text" id="f_pto" value="—">
@@ -813,9 +813,9 @@
 
       <!-- Загрузка и рисование подписи -->
       <div class="row">
-        <label>Подпись инспектора (файл или роспись)</label>
+        <label for="f_sig">Подпись инспектора (файл или роспись)</label>
         <div style="display:flex; gap:8px;">
-          <input type="file" id="f_sig" accept="image/*" style="display:none">
+          <input type="file" id="f_sig" aria-label="Файл подписи" accept="image/*" style="display:none">
           <button type="button" id="btnUploadSigFile" class="btn-side" style="flex:1; min-height:44px;">📁 Выбрать файл</button>
           <button type="button" id="btnDrawSigModal" class="btn-side" style="flex:1; min-height:44px; background:#f0fdf4; border-color:#86efac; color:#166534;">✍ Нарисовать</button>
         </div>
@@ -823,10 +823,8 @@
 
       <div id="sigPreview"></div>
       <div class="row" id="rowDelSig" style="display:none"><button type="button" id="btnDelSig" style="width:100%;padding:11px;border-radius:10px;border:1.5px solid #c62828;background:#fff;color:#c62828;font-weight:700;font-size:14px;">Удалить подпись</button></div>
-      
-      <!-- Кнопка ручной проверки обновлений (внутри настроек, чтобы не мешать на экране) -->
-      <div class="row"><button type="button" id="btnManualUpdate" class="settings-btn secondary">🔄 Проверить наличие обновлений формы</button></div>
 
+      <div class="row"><button type="button" id="btnManualUpdate" class="settings-btn secondary">🔄 Проверить наличие обновлений формы</button></div>
       <div class="row"><button type="button" id="btnClear" style="width:100%;padding:12px;border-radius:10px;border:1.5px solid #c62828;background:#fff;color:#c62828;font-weight:700;font-size:15px;margin-top:6px;">Очистить форму</button></div>
     </details>
   </section>
@@ -837,18 +835,20 @@
 
 <div class="actionbar noprint">
   <div class="actionbar-buttons">
-    <button type="button" id="btnNew">➕ Новый</button>
+    <button type="button" id="btnHistory" title="История актов" style="flex:0.4; background:#f1f5f9; border:1px solid #cbd5e1; color:#475569;">📚</button>
+    <button type="button" id="btnNew" style="flex:0.6;">➕ Новый</button>
     <button type="button" id="btnPdf">📄 PDF</button>
     <button type="button" id="btnShare">✉ Почта</button>
     <button type="button" id="btnSend">☁ Отправить</button>
   </div>
   <div class="app-version-bar" id="appVersion">
-    <span>Версия 2.2</span>
+    <span>Версия 2.3 (Smart PDF)</span>
     <span class="ver-reload-link" id="linkQuickCheck" title="Проверить обновление">🔄</span>
   </div>
 </div>
 <div class="msg" id="msg"></div>
 
+<!-- МОДАЛЬНОЕ ОКНО СТАТЕЙ И АРХИВА -->
 <div id="koapModal" class="koap-modal-overlay noprint">
   <div class="koap-modal-card">
     <div id="koapModalTitle" class="koap-modal-title"></div>
@@ -861,8 +861,10 @@
 <script>
   'use strict';
 
-  // Идентификатор версии для автообновления
-  var APP_VERSION = '2.2';
+  // ЗАДАЙТЕ ПАРОЛЬ ДЛЯ ВХОДА ИНСПЕКТОРА
+  var SECRET_PASS = '1936';
+  var AUTH_KEY = 'dtp_auth_session';
+  var APP_VERSION = '2.3.0';
 
   var safeStorage = {
     get: function(k) { try { return localStorage.getItem(k); } catch(e) { return null; } },
@@ -882,13 +884,25 @@
     self_propelled: 'Самоходная техника'
   });
 
+  var CAT_HINTS = Object.freeze({
+    auto_bus:       'D',
+    bus_kids:       'D',
+    bus_route:      'D',
+    auto_light:     'B',
+    taxi:           'B',
+    truck:          'C или CE',
+    trolley:        'Tb (троллейбус)',
+    tram:           'Tm (трамвай)',
+    self_propelled: 'УТМ тракториста-машиниста'
+  });
+
   var ITEMS = Object.freeze({
     wl:         {label:'Путевой лист', article:'ч. 2 ст. 12.3 КоАП РФ'},
     med:        {label:'Предрейсовый медосмотр', article:'ч. 2 ст. 12.31.1 КоАП РФ'},
     mech:       {label:'Технический контроль (механик)', article:'ч. 3 ст. 12.31.1 КоАП РФ'},
     osago:      {label:'Полис ОСАГО', article:'ч. 2 ст. 12.37 КоАП РФ'},
     to:         {label:'Техосмотр (ЕАИСТО)', article:'ч. 1.1 ст. 12.5 КоАП РФ'},
-    steer:      {label:'Рулевое управление и тормоза', article:'ч. 2 ст. 12.5 КоАП РФ'},
+    steer:      {label:'Рулевое управление и тормоза', article:'ч. 2 ст. 12.5 КоАП РФ', critical: true},
     tires:      {label:'Шины (протектор, сезонность)', article:'ч. 1 ст. 12.5 КоАП РФ'},
     tacho:      {label:'Тахограф', article:'ч. 1 ст. 11.23 КоАП РФ'},
     plomb:      {label:'Пломбы тахографа', article:'ч. 1 ст. 11.23 КоАП РФ'},
@@ -909,119 +923,37 @@
     reg_gtn:    {label:'Регистрация в Гостехнадзоре (СРМ)', article:'ст. 12.1 КоАП РФ'},
     plate_sp:   {label:'Гос. рег. знак (тип 3 / 4А)', article:'ст. 12.2 КоАП РФ'},
     tech_gtn:   {label:'Техосмотр и нормы эксплуатации (Гостехнадзор)', article:'ст. 9.3 КоАП РФ'},
-    ktt_sp:     {label:'Спецразрешение на КТТ (габарит > 2.55 м / жатка)', article:'ст. 12.21.1 КоАП РФ'}
+    ktt_sp:     {label:'Спецразрешение на КТТ (габарит > 2.55 м / жатка)', article:'ст. 12.21.1 КоАП РФ', critical: true}
   });
 
   var KOAP_INFO = Object.freeze({
-    'ч. 1 ст. 12.5 КоАП РФ': {
-      title: 'ч. 1 ст. 12.5 КоАП РФ',
-      desc: 'Управление ТС при наличии неисправностей или условий, при которых эксплуатация запрещена.',
-      penalty: 'Штраф для водителя: 500 руб. или предупреждение.'
-    },
-    'ч. 1.1 ст. 12.5 КоАП РФ': {
-      title: 'ч. 1.1 ст. 12.5 КоАП РФ',
-      desc: 'Управление ТС без действующей диагностической карты техосмотра.',
-      penalty: 'Штраф для водителя: 2 000 руб.'
-    },
-    'ч. 2 ст. 12.5 КоАП РФ': {
-      title: 'ч. 2 ст. 12.5 КоАП РФ',
-      desc: 'Управление ТС с заведомо неисправными тормозной системой, рулевым управлением.',
-      penalty: 'Штраф для водителя: 500 руб. Задержание ТС (ст. 27.13 КоАП РФ).'
-    },
-    'ч. 7 ст. 12.5 КоАП РФ': {
-      title: 'ч. 7 ст. 12.5 КоАП РФ',
-      desc: 'Незаконно нанесенная цветографическая схема легкового такси.',
-      penalty: 'Штраф для водителя: 5 000 руб.'
-    },
-    'ч. 2 ст. 12.3 КоАП РФ': {
-      title: 'ч. 2 ст. 12.3 КоАП РФ',
-      desc: 'Управление ТС без путевого листа при коммерческих перевозках.',
-      penalty: 'Штраф для водителя: 500 руб. или предупреждение.'
-    },
-    'ч. 2 ст. 12.31.1 КоАП РФ': {
-      title: 'ч. 2 ст. 12.31.1 КоАП РФ',
-      desc: 'Нарушение требований о проведении предрейсовых медицинских осмотров водителей.',
-      penalty: 'Штраф: 3 000 руб. (должностные лица — 5 000 руб., юр. лица — 30 000 руб.).'
-    },
-    'ч. 3 ст. 12.31.1 КоАП РФ': {
-      title: 'ч. 3 ст. 12.31.1 КоАП РФ',
-      desc: 'Нарушение требований о проведении предрейсового контроля технического состояния ТС.',
-      penalty: 'Штраф: 3 000 руб. (должностные лица — 5 000 руб., юр. лица — 30 000 руб.).'
-    },
-    'ч. 2 ст. 12.37 КоАП РФ': {
-      title: 'ч. 2 ст. 12.37 КоАП РФ',
-      desc: 'Управление ТС при отсутствии обязательного полиса ОСАГО.',
-      penalty: 'Штраф для водителя: 800 руб.'
-    },
-    'ч. 1 ст. 11.23 КоАП РФ': {
-      title: 'ч. 1 ст. 11.23 КоАП РФ',
-      desc: 'Управление ТС без тахографа, с неисправным тахографом или без карты водителя.',
-      penalty: 'Штраф для водителя: от 3 000 до 5 000 руб.'
-    },
-    'ч. 3 ст. 11.23 КоАП РФ': {
-      title: 'ч. 3 ст. 11.23 КоАП РФ',
-      desc: 'Нарушение норм времени управления ТС и отдыха (РТиО).',
-      penalty: 'Штраф для водителя: от 1 500 до 2 000 руб.'
-    },
-    'ч. 3 ст. 12.23 КоАП РФ': {
-      title: 'ч. 3 ст. 12.23 КоАП РФ',
-      desc: 'Нарушение требований при перевозке групп детей без желтого маячка.',
-      penalty: 'Штраф для водителя: 5 000 руб.'
-    },
-    'ч. 4 ст. 12.23 КоАП РФ': {
-      title: 'ч. 4 ст. 12.23 КоАП РФ',
-      desc: 'Перевозка групп детей без программы маршрута, договора или списка детей.',
-      penalty: 'Штраф для водителя: 3 000 руб.'
-    },
-    'ч. 6 ст. 12.23 КоАП РФ': {
-      title: 'ч. 6 ст. 12.23 КоАП РФ',
-      desc: 'Перевозка детей без поданного в ГИБДД уведомления.',
-      penalty: 'Штраф для водителя: 5 000 руб. или лишение прав от 4 до 6 мес.'
-    },
-    'ч. 2 ст. 11.14.2 КоАП РФ': {
-      title: 'ч. 2 ст. 11.14.2 КоАП РФ',
-      desc: 'Перевозка пассажиров по заказу без договора фрахтования.',
-      penalty: 'Штраф для водителя: 5 000 руб.'
-    },
-    'ч. 4 ст. 11.33 КоАП РФ': {
-      title: 'ч. 4 ст. 11.33 КоАП РФ',
-      desc: 'Использование автобуса, трамвая или троллейбуса без действующей карты маршрута.',
-      penalty: 'Штраф для водителя: 5 000 руб.'
-    },
-    'ст. 14.1 КоАП РФ': {
-      title: 'ст. 14.1 КоАП РФ',
-      desc: 'Осуществление перевозок без регистрации или без разрешения (реестра такси).',
-      penalty: 'Штраф: от 2 000 до 2 500 руб.'
-    },
-    'ст. 9.3 КоАП РФ': {
-      title: 'ст. 9.3 КоАП РФ',
-      desc: 'Нарушение правил эксплуатации тракторов, самоходных машин.',
-      penalty: 'Штраф: от 500 до 1 000 руб. или лишение прав на 3 – 6 мес.'
-    },
-    'ст. 12.1 КоАП РФ': {
-      title: 'ст. 12.1 КоАП РФ',
-      desc: 'Управление машиной, не зарегистрированной в Гостехнадзоре.',
-      penalty: 'Штраф: от 500 до 800 руб. (повторно 5 000 руб. или лишение прав).'
-    },
-    'ст. 12.2 КоАП РФ': {
-      title: 'ст. 12.2 КоАП РФ',
-      desc: 'Управление самоходной техникой без регистрационных знаков.',
-      penalty: 'Штраф: 500 руб. (без знаков — 5 000 руб. или лишение прав).'
-    },
-    'ст. 12.21.1 КоАП РФ': {
-      title: 'ст. 12.21.1 КоАП РФ',
-      desc: 'Движение крупногабаритной техники без спецразрешения (габарит > 2.55 м).',
-      penalty: 'Штраф для водителя: от 1 000 до 10 000 руб., задержание ТС.'
-    }
+    'ч. 1 ст. 12.5 КоАП РФ': { title: 'ч. 1 ст. 12.5 КоАП РФ', desc: 'Управление ТС при наличии неисправностей или условий, при которых эксплуатация запрещена.', penalty: 'Штраф для водителя: 500 руб. или предупреждение.' },
+    'ч. 1.1 ст. 12.5 КоАП РФ': { title: 'ч. 1.1 ст. 12.5 КоАП РФ', desc: 'Управление ТС без действующей диагностической карты техосмотра.', penalty: 'Штраф для водителя: 2 000 руб.' },
+    'ч. 2 ст. 12.5 КоАП РФ': { title: 'ч. 2 ст. 12.5 КоАП РФ', desc: 'Управление ТС с заведомо неисправными тормозной системой, рулевым управлением.', penalty: 'Штраф для водителя: 500 руб. Задержание ТС (ст. 27.13 КоАП РФ).' },
+    'ч. 7 ст. 12.5 КоАП РФ': { title: 'ч. 7 ст. 12.5 КоАП РФ', desc: 'Незаконно нанесенная цветографическая схема легкового такси.', penalty: 'Штраф для водителя: 5 000 руб.' },
+    'ч. 2 ст. 12.3 КоАП РФ': { title: 'ч. 2 ст. 12.3 КоАП РФ', desc: 'Управление ТС без путевого листа при коммерческих перевозках.', penalty: 'Штраф для водителя: 500 руб. или предупреждение.' },
+    'ч. 2 ст. 12.31.1 КоАП РФ': { title: 'ч. 2 ст. 12.31.1 КоАП РФ', desc: 'Нарушение требований о проведении предрейсовых медицинских осмотров.', penalty: 'Штраф: 3 000 руб. (должностные лица — 5 000 руб., юр. лица — 30 000 руб.).' },
+    'ч. 3 ст. 12.31.1 КоАП РФ': { title: 'ч. 3 ст. 12.31.1 КоАП РФ', desc: 'Нарушение требований о проведении предрейсового технического контроля.', penalty: 'Штраф: 3 000 руб. (должностные лица — 5 000 руб., юр. лица — 30 000 руб.).' },
+    'ч. 2 ст. 12.37 КоАП РФ': { title: 'ч. 2 ст. 12.37 КоАП РФ', desc: 'Управление ТС при отсутствии обязательного полиса ОСАГО.', penalty: 'Штраф для водителя: 800 руб.' },
+    'ч. 1 ст. 11.23 КоАП РФ': { title: 'ч. 1 ст. 11.23 КоАП РФ', desc: 'Управление ТС без тахографа, с неисправным тахографом или без карты.', penalty: 'Штраф для водителя: от 3 000 до 5 000 руб.' },
+    'ч. 3 ст. 11.23 КоАП РФ': { title: 'ч. 3 ст. 11.23 КоАП РФ', desc: 'Нарушение норм времени управления ТС и отдыха (РТиО).', penalty: 'Штраф для водителя: от 1 500 до 2 000 руб.' },
+    'ч. 3 ст. 12.23 КоАП РФ': { title: 'ч. 3 ст. 12.23 КоАП РФ', desc: 'Перевозка групп детей без желтого маячка.', penalty: 'Штраф для водителя: 5 000 руб.' },
+    'ч. 4 ст. 12.23 КоАП РФ': { title: 'ч. 4 ст. 12.23 КоАП РФ', desc: 'Перевозка групп детей без маршрута, договора или списка детей.', penalty: 'Штраф для водителя: 3 000 руб.' },
+    'ч. 6 ст. 12.23 КоАП РФ': { title: 'ч. 6 ст. 12.23 КоАП РФ', desc: 'Перевозка детей без поданного в ГИБДД уведомления.', penalty: 'Штраф для водителя: 5 000 руб. или лишение прав от 4 до 6 мес.' },
+    'ч. 2 ст. 11.14.2 КоАП РФ': { title: 'ч. 2 ст. 11.14.2 КоАП РФ', desc: 'Перевозка пассажиров по заказу без договора фрахтования.', penalty: 'Штраф для водителя: 5 000 руб.' },
+    'ч. 4 ст. 11.33 КоАП РФ': { title: 'ч. 4 ст. 11.33 КоАП РФ', desc: 'Использование автобуса или трамвая без действующей карты маршрута.', penalty: 'Штраф для водителя: 5 000 руб.' },
+    'ст. 14.1 КоАП РФ': { title: 'ст. 14.1 КоАП РФ', desc: 'Осуществление перевозок без регистрации или без разрешения (такси).', penalty: 'Штраф: от 2 000 до 2 500 руб.' },
+    'ст. 9.3 КоАП РФ': { title: 'ст. 9.3 КоАП РФ', desc: 'Нарушение правил эксплуатации тракторов, самоходных машин.', penalty: 'Штраф: от 500 до 1 000 руб. или лишение прав на 3 – 6 мес.' },
+    'ст. 12.1 КоАП РФ': { title: 'ст. 12.1 КоАП РФ', desc: 'Управление машиной, не зарегистрированной в Гостехнадзоре.', penalty: 'Штраф: от 500 до 800 руб. (повторно 5 000 руб. или лишение прав).' },
+    'ст. 12.2 КоАП РФ': { title: 'ст. 12.2 КоАП РФ', desc: 'Управление техникой без регистрационных знаков.', penalty: 'Штраф: 500 руб. (без знаков — 5 000 руб. или лишение прав).' },
+    'ст. 12.21.1 КоАП РФ': { title: 'ст. 12.21.1 КоАП РФ', desc: 'Движение крупногабаритной техники без спецразрешения (габарит > 2.55 м).', penalty: 'Штраф для водителя: от 1 000 до 10 000 руб., задержание ТС.' }
   });
 
   var TEXT_MINTRANS = 'Информация о выявленных нарушениях подготовлена для направления в адрес Министерства транспорта и дорожного хозяйства Свердловской области для принятия решения и мер реагирования в пределах установленной компетенции.';
   var TEXT_ROSTRANS = 'Информация о выявленных нарушениях подготовлена для направления в адрес МТУ Ространснадзора по УрФО для принятия решения и мер реагирования в пределах установленной компетенции.';
 
   var koapIndex = {};
-  Object.keys(KOAP_INFO).forEach(function(k){
-    koapIndex[k.replace(/\s+/g, '').toLowerCase()] = KOAP_INFO[k];
-  });
+  Object.keys(KOAP_INFO).forEach(function(k){ koapIndex[k.replace(/\s+/g, '').toLowerCase()] = KOAP_INFO[k]; });
 
   var COMMON = Object.freeze(['wl','med','mech','osago','to','steer','tires']);
   var SPEC = Object.freeze({
@@ -1038,48 +970,72 @@
   var DOC_ITEMS = Object.freeze(['wl','med','mech']);
   var LOCKED_IF_PERSONAL = Object.freeze({wl:1, med:1, mech:1});
 
-  var DRAFT_KEY = 'dtp_act_form_v22';
+  var DRAFT_KEY = 'dtp_act_form_v25';
   var QUEUE_KEY = 'dtp_act_queue_v2';
   var INSP_LIST_KEY = 'dtp_insplist_v1';
   var SIG_KEY = 'dtp_sig_v1';
+  var HIST_KEY = 'dtp_hist_v1';
   var MAX_QUEUE = 30;
+  var MAX_HIST = 20;
   var MAX_TRIES = 5;
 
   var state = { checks: {} };
   var ST_LABEL = Object.freeze({ok:'В норме', viol:'Нарушение', na:'Не проверялось'});
 
+  // --- Авторизация по PIN-коду ---
+  (function() {
+    var modal = document.getElementById('authModal');
+    if (!modal) return;
+    var isAuth = safeStorage.get(AUTH_KEY);
+    if (isAuth === 'true') { modal.style.display = 'none'; return; }
+
+    var input = document.getElementById('appPassInput');
+    var btn = document.getElementById('btnAppLogin');
+    var err = document.getElementById('authError');
+    function doLogin() {
+      if (input.value === SECRET_PASS) {
+        safeStorage.set(AUTH_KEY, 'true');
+        modal.style.display = 'none';
+      } else {
+        err.style.display = 'block';
+        input.value = ''; input.focus();
+      }
+    }
+    btn.addEventListener('click', doLogin);
+    input.addEventListener('keyup', function(e) { if (e.key === 'Enter') doLogin(); });
+  })();
+
   function updateNetStatus() {
     var dot = document.getElementById('netStatus');
     if (!dot) return;
-    if (navigator.onLine) {
-      dot.classList.remove('offline');
-      tryFlush(false);
-    } else {
-      dot.classList.add('offline');
-    }
+    if (navigator.onLine) { dot.classList.remove('offline'); tryFlush(false); }
+    else { dot.classList.add('offline'); }
   }
   window.addEventListener('online', updateNetStatus);
   window.addEventListener('offline', updateNetStatus);
 
-  function curType(){
+  function curType() {
     var sel = document.getElementById('f_type');
-    var v = sel ? sel.value : 'auto_bus';
-    return TYPES[v] ? v : 'auto_bus';
+    return sel ? (TYPES[sel.value] ? sel.value : 'auto_bus') : 'auto_bus';
   }
 
-  function isPersonal(){
+  function isPersonal() {
     var sel = document.getElementById('f_ownertype');
     return sel ? (sel.value === 'personal') : false;
   }
 
+  function addChipText(text) {
+    var ta = document.getElementById('f_inspcomment');
+    if (!ta) return;
+    var cur = ta.value.trim();
+    ta.value = cur ? cur + '; ' + text : text;
+    update();
+  }
+
   function idsFor(type){
-    if (type === 'self_propelled') {
-      return SPEC.self_propelled.slice();
-    }
+    if (type === 'self_propelled') return SPEC.self_propelled.slice();
     var ids = COMMON.slice();
-    if (type === 'tram' || type === 'trolley') {
-      ids = ids.filter(function(i){ return i !== 'tires'; });
-    }
+    if (type === 'tram' || type === 'trolley') ids = ids.filter(function(i){ return i !== 'tires'; });
     return ids.concat(SPEC[type] || []);
   }
 
@@ -1090,11 +1046,6 @@
     var need = false;
     ids.forEach(function(id){
       if (!state.checks[id]) { state.checks[id] = blankCheck(); need = true; }
-      else {
-        if (typeof state.checks[id].garage !== 'string') state.checks[id].garage = '';
-        if (typeof state.checks[id].base !== 'string') state.checks[id].base = '';
-        if (typeof state.checks[id].to_exp !== 'string') state.checks[id].to_exp = '';
-      }
     });
     Object.keys(state.checks).forEach(function(id){
       if (ids.indexOf(id) === -1) { delete state.checks[id]; need = true; }
@@ -1146,17 +1097,17 @@
       var d = document.createElement('div');
       d.className = 'item' + (locked ? ' locked' : '');
       d.setAttribute('data-id', id);
-      var h = '<div class="item-title">' + it.label + '<span class="art" role="button" tabindex="0" title="Нажмите, чтобы узнать подробности">' + it.article + '</span></div>';
+      var h = '<div class="item-title">' + it.label + '<span class="art" role="button" tabindex="0">' + it.article + '</span></div>';
       h += '<div class="btn-row">';
       ['ok','viol','na'].forEach(function(st){
         h += '<button type="button" class="st ' + st + (cs.s === st ? ' sel' : '') + '" data-st="' + st + '">' + ST_LABEL[st] + '</button>';
       });
       h += '</div>';
-      h += '<input type="text" class="cm" placeholder="Комментарий (необязательно)" value="' + esc(cs.c) + '">';
+      h += '<input type="text" class="cm" aria-label="Комментарий к пункту ' + esc(it.label) + '" placeholder="Комментарий (необязательно)" value="' + esc(cs.c) + '">';
       var ex = checkExtra(id, cs);
       if (ex) {
         h += '<div class="extra-label">' + ex.label + ':</div>';
-        h += '<input type="' + (ex.type || 'text') + '" class="cm extra" data-x="' + ex.key + '" placeholder="' + (ex.placeholder || ex.label) + '" value="' + esc(cs[ex.key] || '') + '">';
+        h += '<input type="' + (ex.type || 'text') + '" class="cm extra" data-x="' + ex.key + '" aria-label="' + esc(ex.label) + '" placeholder="' + (ex.placeholder || ex.label) + '" value="' + esc(cs[ex.key] || '') + '">';
       }
       if (locked) h += '<div class="locked-note">Личное пользование — «Не проверялось»</div>';
       h += '<div class="hint"></div>';
@@ -1172,7 +1123,6 @@
     var col = state.checks.color || {s:'na'};
     return (col.s === 'ok') ? 'ч. 7 ст. 12.5 КоАП РФ' : ITEMS.reg.article;
   }
-
   function colorArticle(){
     var col = state.checks.color || {s:'na'};
     if (col.s !== 'viol') return null;
@@ -1187,13 +1137,12 @@
     var art = it.article;
     if (id === 'reg') {
       art = regArticle();
-      if (art === 'ч. 7 ст. 12.5 КоАП РФ')
-        label = 'Цветографическая схема легкового такси (нанесена при отсутствии разрешения)';
+      if (art === 'ч. 7 ст. 12.5 КоАП РФ') label = 'Цветографическая схема легкового такси (нанесена при отсутствии разрешения)';
     }
-    if (id === 'color') { art = colorArticle(); }
+    if (id === 'color') art = colorArticle();
     if (id === 'tech_gtn' && cs.s === 'viol') label += ' (протокол в Гостехнадзор)';
-    if (it.raport && cs.s === 'viol') label += ' (составляется рапорт в Ространснадзор)';
-    return { label: label, art: art };
+    if (it.raport && cs.s === 'viol') label += ' (составляется рапорт)';
+    return { label: label, art: art, critical: !!it.critical };
   }
 
   function update(){
@@ -1202,25 +1151,10 @@
     Array.prototype.forEach.call(box.children, function(d){
       var id = d.getAttribute('data-id'), cs = state.checks[id], hint = d.querySelector('.hint');
       var text = '';
-      if (id === 'reg' && cs && cs.s === 'viol' && state.checks.color && state.checks.color.s === 'ok') {
-        text = '⚠ В реестре разрешения нет, схема нанесена — нарушение по ч. 7 ст. 12.5 КоАП РФ, вносится в итоговую часть.';
-      }
-      if (id === 'color' && cs && cs.s === 'viol') {
-        var reg = state.checks.reg ? state.checks.reg.s : 'na';
-        if (reg === 'ok') text = '⚠ Схема отсутствует, разрешение в реестре есть — квалификация по ст. 14.1 КоАП РФ (см. пункт «В реестре»).';
-        else if (reg === 'viol') text = '⚠ Схема отсутствует при отсутствии разрешения — нарушение учтено через пункт «В реестре» (ст. 14.1 КоАП РФ).';
-        else text = '⚠ Схема отсутствует; статус реестра не подтверждён — в итоговую часть не вносится.';
-      }
-      if (id === 'routemap' && cs && cs.s === 'viol') text = '⚠ Нарушение — составляется рапорт в Ространснадзор.';
-      if (id === 'tech_gtn' && cs && cs.s === 'viol') {
-        text = '⚠ По ст. 9.3 КоАП РФ инспектор ДПС составляет протокол (ст. 12.5 не применяется!). Материал направляется на рассмотрение в Гостехнадзор.';
-      }
-      if (id === 'osago_sp' && cs && cs.s === 'viol') {
-        text = '⚠ ОСАГО требуется только при конструктивной скорости > 20 км/ч (пп. «д» п. 3 ст. 4 ФЗ «Об ОСАГО»). При скорости ≤ 20 км/ч нарушения нет.';
-      }
-      if (id === 'ktt_sp' && cs && cs.s === 'viol') {
-        text = '⚠ Движение без спецразрешения (ширина > 2.55 м / навешенная жатка) — задержание машины на спецстоянку (ст. 27.13 КоАП РФ).';
-      }
+      if (id === 'reg' && cs && cs.s === 'viol' && state.checks.color && state.checks.color.s === 'ok') text = '⚠ В реестре нет, схема нанесена — ч. 7 ст. 12.5 КоАП РФ.';
+      if (id === 'color' && cs && cs.s === 'viol') text = '⚠ Отсутствие схемы проверяется через ст. 14.1 КоАП РФ.';
+      if (id === 'steer' && cs && cs.s === 'viol') text = '🛑 Грубое нарушение. Предусмотрено задержание ТС (ст. 27.13 КоАП).';
+      if (id === 'ktt_sp' && cs && cs.s === 'viol') text = '🛑 Негабарит без спецразрешения — задержание ТС (ст. 27.13 КоАП).';
       if (hint) { hint.textContent = text; hint.className = 'hint' + (text ? ' show' : ''); }
     });
 
@@ -1233,75 +1167,55 @@
       if (!cs || cs.s !== 'viol') return;
       var v = violLine(id);
       if (id === 'color' && !v.art) return;
-      violItems.push('<li>' + esc(v.label) + (v.art ? ' — <span class="art-badge" data-art="' + esc(v.art) + '" role="button" tabindex="0" style="cursor:pointer;text-decoration:underline;">' + esc(v.art) + '</span>' : '') + '</li>');
+      var cl = v.critical ? 'critical' : '';
+      violItems.push('<li class="' + cl + '">' + (v.critical ? '🛑 ' : '') + esc(v.label) + (v.art ? ' — <span class="art-badge" data-art="' + esc(v.art) + '" role="button" tabindex="0">' + esc(v.art) + '</span>' : '') + '</li>');
     });
 
     var htmlList = violItems.length ? violItems.join('') : '<li class="none">Нарушений не выявлено</li>';
 
     var minEl = document.getElementById('f_info_mintrans');
     var rosEl = document.getElementById('f_info_rostrans');
-    if (minEl && minEl.checked) {
-      htmlList += '<li class="info-line"><strong>Минтранс СО:</strong> ' + esc(TEXT_MINTRANS) + '</li>';
-    }
-    if (rosEl && rosEl.checked) {
-      htmlList += '<li class="info-line"><strong>Ространснадзор:</strong> ' + esc(TEXT_ROSTRANS) + '</li>';
+    var otherEl = document.getElementById('f_info_other_check');
+    var otherTextEl = document.getElementById('f_info_other_text');
+
+    if (minEl && minEl.checked) htmlList += '<li class="info-line"><strong>Минтранс СО:</strong> ' + esc(TEXT_MINTRANS) + '</li>';
+    if (rosEl && rosEl.checked) htmlList += '<li class="info-line"><strong>Ространснадзор:</strong> ' + esc(TEXT_ROSTRANS) + '</li>';
+    if (otherEl && otherEl.checked && otherTextEl.value.trim()) {
+      htmlList += '<li class="info-line"><strong>Иное:</strong> Информация подготовлена для: ' + esc(otherTextEl.value.trim()) + '</li>';
     }
 
     var ic = val('f_inspcomment').trim();
-    if (ic) {
-      htmlList += '<li class="comment-line">Комментарий инспектора: ' + esc(ic) + '</li>';
-    }
+    if (ic) htmlList += '<li class="comment-line">Комментарий: ' + esc(ic) + '</li>';
     ul.innerHTML = htmlList;
 
-    var colorSuppressed = (state.checks.color && state.checks.color.s === 'viol' && !colorArticle());
-    if (note) {
-      note.style.display = colorSuppressed ? 'block' : 'none';
-      if (colorSuppressed) {
-        note.textContent = (state.checks.reg && state.checks.reg.s === 'viol')
-          ? '⚠ Нарушение по схеме такси учтено через пункт «В реестре» — квалификация по ст. 14.1 КоАП РФ.'
-          : '⚠ Нарушение по схеме такси учтено, но в итоговую часть не вынесено: статус в реестре не подтверждён.';
-      }
-    }
+    var bAcc = document.getElementById('blockAccidentAnalytics');
+    var bInt = document.getElementById('blockInteragency');
+    if (bAcc) bAcc.style.display = isPersonal() ? 'none' : 'block';
+    if (bInt) bInt.style.display = isPersonal() ? 'none' : 'block';
 
     var rAcc = document.getElementById('rowAccCount');
     if (rAcc) rAcc.style.display = (document.getElementById('accidentRadio').getAttribute('data-val') === 'done') ? 'block' : 'none';
-
     var rTalk = document.getElementById('rowTalkCount');
     if (rTalk) rTalk.style.display = (document.getElementById('talksRadio').getAttribute('data-val') === 'done') ? 'block' : 'none';
-
-    var rTech = document.getElementById('rowTechCount');
-    if (rTech) rTech.style.display = isPersonal() ? 'none' : 'block';
 
     save();
   }
 
   function buildAccidentShort(){
-    if (document.getElementById('accidentRadio').getAttribute('data-val') === 'done') {
-      return 'анализ проводился, ДТП: ' + (val('f_acccount') || '—');
-    }
+    if (document.getElementById('accidentRadio').getAttribute('data-val') === 'done') return 'анализ проводился, ДТП: ' + (val('f_acccount') || '—');
     return 'анализ не проводился';
   }
-
   function buildTalksShort(){
-    if (document.getElementById('talksRadio').getAttribute('data-val') === 'done') {
-      return 'проводились, количество: ' + (val('f_talkcount') || '—');
-    }
-    return 'в текущем году не проводились (индикаторы риска не фиксировались)';
+    if (document.getElementById('talksRadio').getAttribute('data-val') === 'done') return 'проводились, количество: ' + (val('f_talkcount') || '—');
+    return 'в текущем году не проводились';
   }
 
-  function buildTalksString(){
-    return 'Профилактические беседы: ' + buildTalksShort();
-  }
-
-  function newActId(){
-    return Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
-  }
+  function newActId(){ return Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8); }
 
   function statsPayload() {
     var accDone = document.getElementById('accidentRadio').getAttribute('data-val') === 'done';
     var ownerSel = document.getElementById('f_ownertype');
-    var ownerText = (ownerSel.selectedOptions && ownerSel.selectedOptions[0])
-      ? ownerSel.selectedOptions[0].textContent : 'Юридическое лицо';
+    var ownerText = (ownerSel.selectedOptions && ownerSel.selectedOptions[0]) ? ownerSel.selectedOptions[0].textContent : 'Юридическое лицо';
 
     var violatedArticles = [];
     idsFor(curType()).forEach(function(id) {
@@ -1314,9 +1228,7 @@
 
     return {
       act_id: newActId(),
-      date: val('f_date'),
-      time: val('f_time'),
-      place: val('f_place'),
+      date: val('f_date'), time: val('f_time'), place: val('f_place'),
       vehicle_type: TYPES[curType()] || 'Не указан',
       owner_type: ownerText,
       violations_count: violatedArticles.length,
@@ -1327,20 +1239,17 @@
     };
   }
 
-  function val(id){
-    var el = document.getElementById(id);
-    return el ? el.value : '';
-  }
+  function val(id){ var el = document.getElementById(id); return el ? el.value : ''; }
 
   function validate(){
     var missing = [];
-    if (!val('f_date'))      missing.push('дату');
-    if (!val('f_time'))      missing.push('время');
-    if (!val('f_place'))     missing.push('место ДТП');
-    if (!val('f_plate'))     missing.push('гос. номер');
-    if (!val('f_model'))     missing.push('марку и модель ТС');
-    if (!val('f_vu'))        missing.push('водительское удостоверение / УТМ');
-    if (!val('f_inspector')) missing.push('инспектора (ФИО, звание)');
+    if (!val('f_date')) missing.push('дату');
+    if (!val('f_time')) missing.push('время');
+    if (!val('f_place')) missing.push('место ДТП');
+    if (!val('f_plate')) missing.push('гос. номер');
+    if (!val('f_model')) missing.push('марку и модель ТС');
+    if (!val('f_vu')) missing.push('серию и номер ВУ');
+    if (!val('f_inspector')) missing.push('инспектора');
     return missing;
   }
 
@@ -1357,9 +1266,7 @@
     var fields = {};
     var inputs = document.querySelectorAll('input, select, textarea');
     Array.prototype.forEach.call(inputs, function(el){
-      if (el.id && el.type !== 'file') {
-        fields[el.id] = (el.type === 'checkbox') ? (el.checked ? '1' : '0') : el.value;
-      }
+      if (el.id && el.type !== 'file') fields[el.id] = (el.type === 'checkbox') ? (el.checked ? '1' : '0') : el.value;
     });
     fields['_accident'] = document.getElementById('accidentRadio').getAttribute('data-val');
     fields['_talks'] = document.getElementById('talksRadio').getAttribute('data-val');
@@ -1379,14 +1286,21 @@
           else el.value = data.fields[id];
         }
       });
-      if (!TYPES[document.getElementById('f_type').value]) document.getElementById('f_type').value = 'auto_bus';
       if (!document.getElementById('f_ownertype').value) document.getElementById('f_ownertype').value = 'org';
-      document.getElementById('f_ownername_label').textContent =
-        isPersonal() ? 'ФИО водителя' : 'Наименование собственника';
       if (data.fields['_accident']) setRadio('accidentRadio', data.fields['_accident'], true);
       if (data.fields['_talks']) setRadio('talksRadio', data.fields['_talks'], true);
     }
     if (data.checks) state.checks = data.checks;
+
+    var evt = new Event('change');
+    document.getElementById('f_type').dispatchEvent(evt);
+    document.getElementById('f_ownertype').dispatchEvent(evt);
+
+    var otherCheck = document.getElementById('f_info_other_check');
+    var otherRow = document.getElementById('row_info_other');
+    if (otherCheck && otherRow) {
+      otherRow.style.display = otherCheck.checked ? 'block' : 'none';
+    }
   }
 
   function pad2(n){ return (n < 10 ? '0' : '') + n; }
@@ -1413,33 +1327,23 @@
     m.textContent = text;
     m.style.color = ok ? '#059669' : '#dc2626';
     m.style.display = 'block';
-    setTimeout(function(){ m.style.display = 'none'; }, 5000);
+    setTimeout(function(){ m.style.display = 'none'; }, 4000);
   }
 
-  function queueGet(){
-    try { return JSON.parse(safeStorage.get(QUEUE_KEY) || '[]'); } catch(e) { return []; }
-  }
+  // --- Очередь и отправка ---
+  function queueGet(){ try { return JSON.parse(safeStorage.get(QUEUE_KEY) || '[]'); } catch(e) { return []; } }
   function queueSet(q){ safeStorage.set(QUEUE_KEY, JSON.stringify(q)); }
-
   function enqueue(p){
     var q = queueGet();
-    if (q.length >= MAX_QUEUE) {
-      q.shift();
-      showMsg('Очередь заполнена (' + MAX_QUEUE + ') — самый старый акт удалён', false);
-    }
-    q.push(p);
-    queueSet(q);
+    if (q.length >= MAX_QUEUE) q.shift();
+    q.push(p); queueSet(q);
   }
-
   function updateQueueInfo(){
-    var q = queueGet();
-    var n = q.length;
-    var el = document.getElementById('queueInfo');
-    var btn = document.getElementById('btnSend');
+    var q = queueGet(), n = q.length;
+    var el = document.getElementById('queueInfo'), btn = document.getElementById('btnSend');
     if (!el || !btn) return;
     if (n > 0) {
-      var stalled = q[0].stalled ? ' (сбой сервера, повтор по кнопке «Отправить»)' : '';
-      el.textContent = 'Очередь отправки: ' + n + ' акт(ов) ждут интернета' + stalled;
+      el.textContent = 'Очередь отправки: ' + n + ' акт(ов) ждут интернета';
       el.style.display = 'block';
       btn.textContent = '☁ Отправить (' + n + ')';
     } else {
@@ -1450,30 +1354,23 @@
 
   function deliver(p){
     var ep = val('f_endpoint').trim();
-    var bodyData = JSON.stringify(p);
     return fetch(ep, {
-      method: 'POST',
-      mode: 'cors',
+      method: 'POST', mode: 'cors',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: bodyData
+      body: JSON.stringify(p)
     }).then(function(r){
       if (!r.ok) throw new Error('Ошибка сервера: ' + r.status);
       return 'cors_ok';
     }).catch(function(err){
       if (err.message && err.message.indexOf('Ошибка сервера') !== -1) throw err;
-      return fetch(ep, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: bodyData
-      }).then(function(){ return 'opaque'; });
+      return fetch(ep, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(p) })
+        .then(function(){ return 'opaque'; });
     });
   }
 
   var flushing = false;
   function tryFlush(force){
-    if (flushing) return;
-    if (!navigator.onLine) { updateQueueInfo(); return; }
+    if (flushing || !navigator.onLine) { updateQueueInfo(); return; }
     var q = queueGet();
     if (!q.length || !val('f_endpoint').trim()) { updateQueueInfo(); return; }
     if (q[0].stalled) {
@@ -1486,10 +1383,7 @@
     deliver(item).then(function(){
       flushing = false;
       var cur = queueGet();
-      if (cur.length && cur[0].act_id === item.act_id) {
-        cur.shift();
-        queueSet(cur);
-      }
+      if (cur.length && cur[0].act_id === item.act_id) { cur.shift(); queueSet(cur); }
       if (queueGet().length) setTimeout(function(){ tryFlush(false); }, 1500);
       else { updateQueueInfo(); showMsg('Очередь отправлена в таблицу ✔', true); }
     }).catch(function(err){
@@ -1497,38 +1391,88 @@
       var cur = queueGet();
       if (cur.length && cur[0].act_id === item.act_id) {
         cur[0].tries = (cur[0].tries || 0) + 1;
-        if (cur[0].tries >= MAX_TRIES) {
-          cur[0].stalled = true;
-          showMsg('Акт не отправлен (' + (err.message || 'сбой') + ')', false);
-        }
+        if (cur[0].tries >= MAX_TRIES) { cur[0].stalled = true; showMsg('Акт не отправлен', false); }
         queueSet(cur);
       }
       updateQueueInfo();
     });
   }
 
+  // --- История локальных актов ---
+  function saveHistoryLocal() {
+    var hist = [];
+    try { hist = JSON.parse(safeStorage.get(HIST_KEY) || '[]'); } catch(e){}
+    var plate = val('f_plate').toUpperCase() || 'Без номера';
+    var dt = formatDateRu(val('f_date')) + ' ' + val('f_time');
+    hist = hist.filter(function(h) { return h.plate !== plate; });
+    hist.unshift({ plate: plate, dt: dt, model: val('f_model'), data: safeStorage.get(DRAFT_KEY) });
+    if (hist.length > MAX_HIST) hist = hist.slice(0, MAX_HIST);
+    safeStorage.set(HIST_KEY, JSON.stringify(hist));
+  }
+
+  function showHistoryModal() {
+    var modal = document.getElementById('koapModal');
+    var titleEl = document.getElementById('koapModalTitle');
+    var bodyEl = document.getElementById('koapModalBody');
+    var penaltyEl = document.getElementById('koapModalPenalty');
+
+    titleEl.textContent = '📚 Архив актов осмотра';
+    penaltyEl.style.display = 'none';
+
+    var hist = [];
+    try { hist = JSON.parse(safeStorage.get(HIST_KEY) || '[]'); } catch(e){}
+
+    if (hist.length === 0) {
+      bodyEl.innerHTML = '<div style="text-align:center;color:#64748b;margin-top:20px;">Архив пуст.<br>Завершенные акты сохраняются автоматически.</div>';
+    } else {
+      var html = '<div style="font-size:12.5px;color:#64748b;margin-bottom:10px;">Последние ' + hist.length + ' актов. Нажмите, чтобы восстановить в форму.</div>';
+      hist.forEach(function(h, idx) {
+        html += '<div class="hist-item" data-idx="' + idx + '">';
+        html += '<div class="hist-title">' + esc(h.plate) + ' — ' + esc(h.model) + '</div>';
+        html += '<div class="hist-sub">' + esc(h.dt) + '</div>';
+        html += '</div>';
+      });
+      bodyEl.innerHTML = html;
+
+      var items = bodyEl.querySelectorAll('.hist-item');
+      Array.prototype.forEach.call(items, function(el) {
+        el.addEventListener('click', function() {
+          var idx = this.getAttribute('data-idx');
+          if (confirm('Восстановить акт ' + hist[idx].plate + ' в форму? Текущие данные будут перезаписаны.')) {
+            safeStorage.set(DRAFT_KEY, hist[idx].data);
+            restore();
+            modal.classList.remove('active');
+            showMsg('Акт загружен из архива ✔', true);
+          }
+        });
+      });
+    }
+    modal.classList.add('active');
+  }
+
+  document.getElementById('btnHistory').addEventListener('click', showHistoryModal);
+
+  // --- Отправка и сброс ---
   function send() {
     var ep = val('f_endpoint').trim();
-    if (!ep) {
-      showMsg('Укажите адрес Google Apps Script в настройках', false);
-      return;
-    }
+    if (!ep) { showMsg('Укажите адрес Google Apps Script в настройках', false); return; }
     var m = validate();
     if (m.length) { showMsg('Заполните: ' + m.join(', '), false); return; }
 
     var p = statsPayload();
     if (!warnUnchecked()) return;
 
+    saveHistoryLocal();
+
     if (!navigator.onLine) {
       enqueue(p);
       updateQueueInfo();
-      showMsg('Нет сети — статистика сохранена в очереди (' + queueGet().length + ')', true);
+      showMsg('Нет сети — статистика сохранена в очереди', true);
       return;
     }
 
     var btn = document.getElementById('btnSend');
-    btn.disabled = true;
-    btn.textContent = 'Отправка…';
+    btn.disabled = true; btn.textContent = 'Отправка…';
 
     deliver(p).then(function() {
       btn.disabled = false;
@@ -1554,7 +1498,14 @@
     document.getElementById('f_type').value = 'auto_bus';
     document.getElementById('f_ownertype').value = 'org';
     document.getElementById('f_pto').value = '—';
-    document.getElementById('f_ownername_label').textContent = 'Наименование собственника';
+
+    var otherRow = document.getElementById('row_info_other');
+    if (otherRow) otherRow.style.display = 'none';
+
+    var evt = new Event('change');
+    document.getElementById('f_type').dispatchEvent(evt);
+    document.getElementById('f_ownertype').dispatchEvent(evt);
+
     state.checks = {};
     setRadio('accidentRadio', 'no', true);
     setRadio('talksRadio', 'no', true);
@@ -1565,19 +1516,26 @@
     updateQueueInfo();
   }
 
+  /* ========================================================
+     ФОРМИРОВАНИЕ УМНОГО PDF-БЛАНКА
+     ======================================================== */
   function buildPrintContent() {
     var pArea = document.getElementById('printArea');
     if (!pArea) return;
 
     var ownerSel = document.getElementById('f_ownertype');
     var ownerKind = (ownerSel.selectedOptions && ownerSel.selectedOptions[0]) ? ownerSel.selectedOptions[0].textContent : '';
-    var personal = isPersonal();
+    var isFizCom = val('f_ownertype') === 'phys_com';
+    var isPers = isPersonal();
+
     var dateRu = formatDateRu(val('f_date'));
     var timeVal = val('f_time');
     var sigBase64 = safeStorage.get(SIG_KEY);
 
     var rows = '';
     var num = 1;
+    var violItemsPDF = []; // Для итоговой сводки в PDF
+
     idsFor(curType()).forEach(function(id) {
       var it = ITEMS[id];
       if (!it) return;
@@ -1590,10 +1548,24 @@
 
       var stClass = cs.s === 'viol' ? ' class="p-badge-viol"' : '';
       var itemLabel = esc(it.label);
+
       if (cs.s === 'viol') {
         var v = violLine(id);
         itemLabel = esc(v.label);
         if (v.art) noteParts.unshift('<b>' + esc(v.art) + '</b>');
+
+        // Умное формирование итоговой сводки с описанием и штрафом
+        if (!(id === 'color' && !v.art)) {
+          var normKey = v.art ? v.art.replace(/\s+/g, '').toLowerCase() : '';
+          var info = koapIndex[normKey];
+          var liHtml = '<li style="margin-bottom:6px;">' + (v.critical ? '<b>🛑 КРИТИЧЕСКОЕ НАРУШЕНИЕ:</b> ' : '') + esc(v.label);
+          if (v.art) liHtml += ' — <b>' + esc(v.art) + '</b>';
+          if (info) {
+            liHtml += '<br><span style="font-size:9.5pt; color:#444;"><i>' + esc(info.desc) + ' ' + esc(info.penalty) + '</i></span>';
+          }
+          liHtml += '</li>';
+          violItemsPDF.push(liHtml);
+        }
       }
 
       rows += '<tr>' +
@@ -1604,19 +1576,31 @@
       '</tr>';
     });
 
+    var violSummaryHtml = violItemsPDF.length > 0
+      ? '<ul style="margin: 0; padding-left: 20px;">' + violItemsPDF.join('') + '</ul>'
+      : 'Нарушений не выявлено';
+
     var infoBoxes = [];
     var minEl = document.getElementById('f_info_mintrans');
     var rosEl = document.getElementById('f_info_rostrans');
+    var otherEl = document.getElementById('f_info_other_check');
+    var otherTextEl = document.getElementById('f_info_other_text');
+
     if (minEl && minEl.checked) infoBoxes.push('• ' + TEXT_MINTRANS);
     if (rosEl && rosEl.checked) infoBoxes.push('• ' + TEXT_ROSTRANS);
+    if (otherEl && otherEl.checked && otherTextEl.value.trim()) {
+      infoBoxes.push('• Информация подготовлена для направления в адрес: ' + esc(otherTextEl.value.trim()));
+    }
 
     var ic = val('f_inspcomment').trim();
 
-    var sigHtml = sigBase64 
+    var sigHtml = sigBase64
       ? '<img src="' + sigBase64 + '" class="p-sig-img" alt="Подпись">'
       : '<span class="p-sig-line"></span>';
 
-    pArea.innerHTML = 
+    var ownerLabel = (isPers || isFizCom) ? 'ФИО собственника:' : 'Наименование собственника:';
+
+    pArea.innerHTML =
       '<div class="p-header">' +
         '<h1>АКТ</h1>' +
         '<h2>проверки технического состояния транспортного средства на месте ДТП</h2>' +
@@ -1630,44 +1614,36 @@
         '<tr><td class="p-lbl">Государственный рег. знак:</td><td><b>' + esc(val('f_plate').toUpperCase()) + '</b></td></tr>' +
         '<tr><td class="p-lbl">Водительское удостоверение / УТМ:</td><td>' + esc(val('f_vu')) + '</td></tr>' +
         '<tr><td class="p-lbl">Собственник ТС (категория):</td><td>' + esc(ownerKind) + '</td></tr>' +
-        '<tr><td class="p-lbl">' + (personal ? 'ФИО водителя:' : 'Наименование собственника:') + '</td><td>' + esc(val('f_ownername') || '—') + '</td></tr>' +
+        '<tr><td class="p-lbl">' + ownerLabel + '</td><td>' + esc(val('f_ownername') || '—') + '</td></tr>' +
         '<tr><td class="p-lbl">Место регистрации ТС:</td><td>' + esc(val('f_regplace') || '—') + '</td></tr>' +
         '<tr><td class="p-lbl">Пункт тех. осмотра (ПТО):</td><td>' + esc(val('f_pto') || '—') + '</td></tr>' +
       '</table>' +
 
       '<div class="p-section-title">Результаты проверки технического состояния и документации</div>' +
       '<table class="p-table">' +
-        '<thead>' +
-          '<tr>' +
-            '<th style="width:30px;">№</th>' +
-            '<th>Параметр / Документ</th>' +
-            '<th style="width:130px;">Результат</th>' +
-            '<th>Примечание / Квалификация</th>' +
-          '</tr>' +
-        '</thead>' +
+        '<thead><tr><th style="width:30px;">№</th><th>Параметр / Документ</th><th style="width:130px;">Результат</th><th>Примечание / Квалификация</th></tr></thead>' +
         '<tbody>' + rows + '</tbody>' +
       '</table>' +
 
+      // Блок итоговой сводки возвращен и сделан "умным"
+      '<div class="p-section-title">Итоговая часть (выявленные нарушения)</div>' +
+      '<div class="p-summary-text">' + violSummaryHtml + '</div>' +
+
+      (isPers ? '' : (
       '<div class="p-section-title">Сведения о профилактической работе и аварийности</div>' +
       '<div class="p-summary-text">' +
         '• Аварийность на предприятии в тек. году: ' + buildAccidentShort() + '<br>' +
         '• Профилактическая работа: ' + buildTalksShort() + '<br>' +
-        (personal ? '' : ('• Зарегистрировано ТС за предприятием: ' + (val('f_techcount') || '—') + '<br>')) +
-      '</div>' +
+        '• Зарегистрировано ТС за предприятием: ' + (val('f_techcount') || '—') + '<br>' +
+      '</div>'
+      )) +
 
       (infoBoxes.length ? ('<div class="p-section-title">Межведомственное информирование</div><div class="p-summary-text">' + infoBoxes.join('<br>') + '</div>') : '') +
-
       (ic ? ('<div class="p-section-title">Особые отметки и замечания</div><div class="p-summary-text">' + esc(ic) + '</div>') : '') +
 
       '<div class="p-sig-row">' +
-        '<div>' +
-          '<b>Проверку провел:</b><br>' +
-          esc(val('f_inspector')) +
-        '</div>' +
-        '<div class="p-sig-block">' +
-          '<span>Подпись:</span>' +
-          sigHtml +
-        '</div>' +
+        '<div><b>Проверку провел:</b><br>' + esc(val('f_inspector')) + '</div>' +
+        '<div class="p-sig-block"><span>Подпись:</span>' + sigHtml + '</div>' +
       '</div>';
   }
 
@@ -1675,14 +1651,10 @@
     var m = validate();
     if (m.length) { showMsg('Заполните: ' + m.join(', '), false); return; }
     if (!warnUnchecked()) return;
-
+    saveHistoryLocal();
     buildPrintContent();
-
-    if (typeof Website2APK !== 'undefined' && Website2APK.printPage) {
-      Website2APK.printPage();
-    } else {
-      window.print();
-    }
+    if (typeof Website2APK !== 'undefined' && Website2APK.printPage) { Website2APK.printPage(); }
+    else { window.print(); }
   }
 
   function loadInspList(){
@@ -1696,9 +1668,7 @@
     var cur = sel.value || val('f_inspector');
     var list = loadInspList();
     var listInput = document.getElementById('f_insp_list');
-    if (listInput && !listInput.value && list.length) {
-      listInput.value = list.join('\n');
-    }
+    if (listInput && !listInput.value && list.length) listInput.value = list.join('\n');
     sel.innerHTML = '<option value="">— выберите —</option>';
     list.forEach(function(name){
       var o = document.createElement('option');
@@ -1729,7 +1699,6 @@
     if (!articleText) return;
     var normKey = articleText.replace(/\s+/g, '').toLowerCase();
     var info = koapIndex[normKey];
-
     var modal = document.getElementById('koapModal');
     var titleEl = document.getElementById('koapModalTitle');
     var bodyEl = document.getElementById('koapModalBody');
@@ -1748,23 +1717,14 @@
     modal.classList.add('active');
   }
 
-  function hideKoapModal() {
-    var modal = document.getElementById('koapModal');
-    if (modal) modal.classList.remove('active');
-  }
+  function hideKoapModal() { document.getElementById('koapModal').classList.remove('active'); }
 
   document.getElementById('btnKoapModalClose').addEventListener('click', hideKoapModal);
-  document.getElementById('koapModal').addEventListener('click', function(e) {
-    if (e.target === this) hideKoapModal();
-  });
+  document.getElementById('koapModal').addEventListener('click', function(e) { if (e.target === this) hideKoapModal(); });
 
   document.getElementById('checks').addEventListener('click', function(e){
     var artTarget = e.target.closest('.art');
-    if (artTarget) {
-      e.stopPropagation();
-      showKoapModal(artTarget.textContent);
-      return;
-    }
+    if (artTarget) { e.stopPropagation(); showKoapModal(artTarget.textContent); return; }
 
     var b = e.target.closest('.st');
     if (!b) return;
@@ -1792,39 +1752,60 @@
 
   document.getElementById('violList').addEventListener('click', function(e){
     var artBadge = e.target.closest('.art-badge');
-    if (artBadge) {
-      e.stopPropagation();
-      showKoapModal(artBadge.getAttribute('data-art') || artBadge.textContent);
-    }
+    if (artBadge) { e.stopPropagation(); showKoapModal(artBadge.getAttribute('data-art') || artBadge.textContent); }
   });
 
   var infoMin = document.getElementById('f_info_mintrans');
   var infoRos = document.getElementById('f_info_rostrans');
+  var infoOtherCheck = document.getElementById('f_info_other_check');
+  var infoOtherText = document.getElementById('f_info_other_text');
+
   if (infoMin) infoMin.addEventListener('change', update);
   if (infoRos) infoRos.addEventListener('change', update);
+
+  if (infoOtherCheck) {
+    infoOtherCheck.addEventListener('change', function() {
+      var row = document.getElementById('row_info_other');
+      if (this.checked) {
+        row.style.display = 'block';
+        infoOtherText.focus();
+      } else {
+        row.style.display = 'none';
+        infoOtherText.value = '';
+      }
+      update();
+    });
+  }
+  if (infoOtherText) infoOtherText.addEventListener('input', update);
 
   document.getElementById('checks').addEventListener('input', function(e){
     var el = e.target;
     if (el.classList.contains('extra')) {
       var id = el.closest('.item').getAttribute('data-id');
-      state.checks[id][el.getAttribute('data-x')] = el.value;
-      save();
+      state.checks[id][el.getAttribute('data-x')] = el.value; save();
     } else if (el.classList.contains('cm')) {
       var id2 = el.closest('.item').getAttribute('data-id');
-      state.checks[id2].c = el.value;
-      save();
+      state.checks[id2].c = el.value; save();
     }
   });
 
   document.getElementById('f_type').addEventListener('change', function(){
-    ensureState();
-    renderChecks();
+    var catHint = document.getElementById('catHint');
+    if (catHint) {
+      var cType = this.value;
+      catHint.textContent = 'Требуемая категория: ' + (CAT_HINTS[cType] || 'Не определена');
+    }
+    ensureState(); renderChecks();
   });
 
   document.getElementById('f_ownertype').addEventListener('change', function(){
+    var lbl = document.getElementById('f_ownername_label');
+    if (this.value === 'personal' || this.value === 'phys_com') {
+      lbl.textContent = 'ФИО собственника';
+    } else {
+      lbl.textContent = 'Наименование собственника';
+    }
     var personal = isPersonal();
-    document.getElementById('f_ownername_label').textContent =
-      personal ? 'ФИО водителя' : 'Наименование собственника';
     DOC_ITEMS.forEach(function(id){
       if (personal && state.checks[id]) state.checks[id].s = 'na';
     });
@@ -1842,13 +1823,10 @@
   });
 
   document.getElementById('btnSaveInspList').addEventListener('click', function(){
-    var raw = document.getElementById('f_insp_list').value.split(/[\r\n;]+/)
-      .map(function(s){ return s.trim(); }).filter(Boolean).join('\n');
+    var raw = document.getElementById('f_insp_list').value.split(/[\r\n;]+/).map(function(s){ return s.trim(); }).filter(Boolean).join('\n');
     document.getElementById('f_insp_list').value = raw;
     safeStorage.set(INSP_LIST_KEY, raw);
-    fillInspSel();
-    save();
-    showMsg('Список инспекторов сохранён ✔', true);
+    fillInspSel(); save(); showMsg('Список инспекторов сохранён ✔', true);
   });
 
   document.getElementById('f_insel').addEventListener('change', function(){
@@ -1858,54 +1836,51 @@
 
   document.addEventListener('input', function(e){
     if (e.target.id === 'f_inspcomment') update();
-    else if (e.target.id === 'f_plate') {
-      e.target.value = e.target.value.toUpperCase();
-      save();
-    }
+    else if (e.target.id === 'f_plate') { e.target.value = e.target.value.toUpperCase(); save(); }
     else if (e.target.closest && e.target.closest('section')) save();
   });
 
   document.getElementById('btnGps').addEventListener('click', function(){
-    if (!navigator.geolocation) {
-      showMsg('Геолокация не поддерживается в данном браузере', false);
-      return;
-    }
-    var btn = this;
-    btn.disabled = true;
-    btn.textContent = '⏳ GPS...';
+    if (!navigator.geolocation) { showMsg('Геолокация не поддерживается', false); return; }
+    var btn = this; btn.disabled = true; btn.textContent = '⏳ GPS...';
     navigator.geolocation.getCurrentPosition(function(pos){
-      btn.disabled = false;
-      btn.textContent = '📍 GPS';
+      btn.disabled = false; btn.textContent = '📍 GPS';
       var coords = pos.coords.latitude.toFixed(6) + ', ' + pos.coords.longitude.toFixed(6);
       var placeInput = document.getElementById('f_place');
       var curVal = placeInput.value.trim();
       placeInput.value = curVal ? (curVal.indexOf(coords) === -1 ? curVal + ' (' + coords + ')' : curVal) : coords;
-      save();
-      showMsg('Координаты GPS добавлены ✔', true);
-    }, function(err){
-      btn.disabled = false;
-      btn.textContent = '📍 GPS';
-      showMsg('Не удалось определить GPS координаты', false);
+      save(); showMsg('Координаты GPS добавлены ✔', true);
+    }, function(){
+      btn.disabled = false; btn.textContent = '📍 GPS'; showMsg('Не удалось определить GPS координаты', false);
     }, { enableHighAccuracy: true, timeout: 9000, maximumAge: 30000 });
   });
 
   document.getElementById('btnAllOk').addEventListener('click', markAllRemainingOk);
   document.getElementById('btnPdf').addEventListener('click', makePdf);
-  document.getElementById('btnSend').addEventListener('click', send);
+  // Кнопку "Почта" теперь просто вызываем как PDF (и внутри Web2APK она работает как sharePdf)
+  var btnShare = document.getElementById('btnShare');
+  if (btnShare) {
+    btnShare.addEventListener('click', function(){
+      var m = validate();
+      if (m.length) { showMsg('Заполните: ' + m.join(', '), false); return; }
+      if (!warnUnchecked()) return;
+      saveHistoryLocal(); buildPrintContent();
+      var plate = val('f_plate').trim(); var email = val('f_email').trim();
+      if (typeof Website2APK !== 'undefined' && Website2APK.sharePdf) { Website2APK.sharePdf(plate, email); } else { window.print(); }
+    });
+  }
 
   document.getElementById('btnNew').addEventListener('click', function(){
     if (!confirm('Начать новый акт? Текущие данные формы будут очищены.')) return;
-    resetFormData();
-    showMsg('Форма очищена для нового акта', true);
+    resetFormData(); showMsg('Форма очищена для нового акта', true);
   });
 
   document.getElementById('btnClear').addEventListener('click', function(){
-    if (!confirm('Очистить данные осмотра? (Настройки и список инспекторов сохранятся)')) return;
-    resetFormData();
-    showMsg('Форма очищена', true);
+    if (!confirm('Очистить данные осмотра? (Настройки и список сохранятся)')) return;
+    resetFormData(); showMsg('Форма очищена', true);
   });
 
-  // ПОДПИСЬ И ХОЛСТ
+  // --- ПОДПИСЬ ---
   var fileInput = document.getElementById('f_sig');
   var btnUploadSigFile = document.getElementById('btnUploadSigFile');
   var sigPreview = document.getElementById('sigPreview');
@@ -1927,10 +1902,7 @@
   if (savedSig) renderSignature(savedSig);
 
   if (btnUploadSigFile && fileInput) {
-    btnUploadSigFile.addEventListener('click', function() {
-      fileInput.value = '';
-      fileInput.click();
-    });
+    btnUploadSigFile.addEventListener('click', function() { fileInput.value = ''; fileInput.click(); });
   }
 
   if (fileInput) {
@@ -1946,13 +1918,10 @@
             if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
             else { w = Math.round((w * maxDim) / h); h = maxDim; }
           }
-          var canvas = document.createElement('canvas');
-          canvas.width = w; canvas.height = h;
-          var ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, w, h);
+          var canvas = document.createElement('canvas'); canvas.width = w; canvas.height = h;
+          var ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, w, h);
           var compressed = canvas.toDataURL('image/png');
-          safeStorage.set(SIG_KEY, compressed);
-          renderSignature(compressed);
+          safeStorage.set(SIG_KEY, compressed); renderSignature(compressed);
         };
         img.src = e.target.result;
       };
@@ -1968,7 +1937,7 @@
     });
   }
 
-  // Модальное окно рисования подписи
+  // --- ХОЛСТ РИСОВАНИЯ ---
   var modalHtml = '<div id="sigDrawModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,23,42,0.7);z-index:200;align-items:center;justify-content:center;padding:16px;">' +
     '<div style="background:#fff;border-radius:14px;width:100%;max-width:420px;padding:16px;box-shadow:0 10px 25px rgba(0,0,0,0.3);">' +
       '<div style="font-weight:700;font-size:15px;margin-bottom:10px;color:#1a365d;">Поставьте подпись пальцем</div>' +
@@ -1989,13 +1958,8 @@
   function resizeCanvas() {
     if (!padCanvas) return;
     var rect = padCanvas.getBoundingClientRect();
-    padCanvas.width = rect.width;
-    padCanvas.height = rect.height;
-    pCtx = padCanvas.getContext('2d');
-    pCtx.lineWidth = 2.5;
-    pCtx.lineCap = 'round';
-    pCtx.lineJoin = 'round';
-    pCtx.strokeStyle = '#0f274a';
+    padCanvas.width = rect.width; padCanvas.height = rect.height;
+    pCtx = padCanvas.getContext('2d'); pCtx.lineWidth = 2.5; pCtx.lineCap = 'round'; pCtx.lineJoin = 'round'; pCtx.strokeStyle = '#0f274a';
   }
 
   function getCanvasPos(e) {
@@ -2009,91 +1973,55 @@
     var startD = function(e){ isDrawing = true; hasInk = true; var pos = getCanvasPos(e); pCtx.beginPath(); pCtx.moveTo(pos.x, pos.y); e.preventDefault(); };
     var moveD = function(e){ if(!isDrawing) return; var pos = getCanvasPos(e); pCtx.lineTo(pos.x, pos.y); pCtx.stroke(); e.preventDefault(); };
     var stopD = function(){ isDrawing = false; };
-    padCanvas.addEventListener('mousedown', startD);
-    padCanvas.addEventListener('mousemove', moveD);
-    window.addEventListener('mouseup', stopD);
-    padCanvas.addEventListener('touchstart', startD, { passive: false });
-    padCanvas.addEventListener('touchmove', moveD, { passive: false });
-    window.addEventListener('touchend', stopD);
+    padCanvas.addEventListener('mousedown', startD); padCanvas.addEventListener('mousemove', moveD); window.addEventListener('mouseup', stopD);
+    padCanvas.addEventListener('touchstart', startD, { passive: false }); padCanvas.addEventListener('touchmove', moveD, { passive: false }); window.addEventListener('touchend', stopD);
   }
 
   if (btnDrawSigModal) {
-    btnDrawSigModal.addEventListener('click', function() {
-      drawModal.style.display = 'flex';
-      resizeCanvas();
-      hasInk = false;
-    });
+    btnDrawSigModal.addEventListener('click', function() { drawModal.style.display = 'flex'; resizeCanvas(); hasInk = false; });
   }
-  document.getElementById('btnPadClear').addEventListener('click', function() {
-    if (pCtx) { pCtx.clearRect(0, 0, padCanvas.width, padCanvas.height); hasInk = false; }
-  });
-  document.getElementById('btnPadCancel').addEventListener('click', function() {
-    drawModal.style.display = 'none';
-  });
+  document.getElementById('btnPadClear').addEventListener('click', function() { if (pCtx) { pCtx.clearRect(0, 0, padCanvas.width, padCanvas.height); hasInk = false; } });
+  document.getElementById('btnPadCancel').addEventListener('click', function() { drawModal.style.display = 'none'; });
   document.getElementById('btnPadSave').addEventListener('click', function() {
     if (!hasInk) { alert('Пожалуйста, распишитесь'); return; }
     var sigData = padCanvas.toDataURL('image/png');
-    safeStorage.set(SIG_KEY, sigData);
-    renderSignature(sigData);
-    drawModal.style.display = 'none';
+    safeStorage.set(SIG_KEY, sigData); renderSignature(sigData); drawModal.style.display = 'none';
   });
 
-  // ========================================================
-  // ЛОГИКА ОБНОВЛЕНИЯ ФОРМЫ (РУЧНАЯ И АВТОМАТИЧЕСКАЯ)
-  // ========================================================
+  // --- ОБНОВЛЕНИЯ БРАУЗЕРА ---
   function checkWebUpdates(manual) {
-    if (typeof Website2APK !== 'undefined') {
-      if (manual) showMsg('Внутри APK обновление выполняется через файл приложения', false);
-      return;
-    }
-    if (!navigator.onLine) {
-      if (manual) showMsg('Нет подключения к интернету', false);
-      return;
-    }
-    if (window.location.protocol.indexOf('http') === -1) {
-      if (manual) showMsg('Файл открыт локально. Обновление работает через сайт/сервер', false);
-      return;
-    }
+    if (typeof Website2APK !== 'undefined') { if (manual) showMsg('Обновление внутри APK', false); return; }
+    if (!navigator.onLine) { if (manual) showMsg('Нет сети', false); return; }
+    if (window.location.protocol.indexOf('http') === -1) return;
 
     if (manual) showMsg('Проверка обновлений…', true);
-
     fetch(window.location.href, { cache: 'no-store' })
-      .then(function(res) {
-        if (!res.ok) throw new Error();
-        return res.text();
-      })
+      .then(function(res) { if (!res.ok) throw new Error(); return res.text(); })
       .then(function(html) {
         var match = html.match(/var APP_VERSION = ['"]([^'"]+)['"]/);
         if (match && match[1] && match[1] !== APP_VERSION) {
-          save(); // Сохраняем черновик перед перезагрузкой
-          showMsg('Найдено обновление (' + match[1] + '). Перезагрузка…', true);
-          setTimeout(function() {
-            window.location.reload(true);
-          }, 1200);
+          save(); showMsg('Найдено обновление (' + match[1] + '). Перезагрузка…', true);
+          setTimeout(function() { window.location.reload(true); }, 1200);
         } else {
-          if (manual) showMsg('У вас установлена последняя версия (v' + APP_VERSION + ') ✔', true);
+          if (manual) showMsg('Установлена последняя версия (v' + APP_VERSION + ') ✔', true);
         }
       })
-      .catch(function() {
-        if (manual) showMsg('Не удалось проверить наличие обновлений', false);
-      });
+      .catch(function() { if (manual) showMsg('Не удалось проверить обновления', false); });
   }
 
-  // Привязка кнопок проверки обновления
   var btnManual = document.getElementById('btnManualUpdate');
-  if (btnManual) {
-    btnManual.addEventListener('click', function() { checkWebUpdates(true); });
-  }
+  if (btnManual) btnManual.addEventListener('click', function() { checkWebUpdates(true); });
   var linkCheck = document.getElementById('linkQuickCheck');
-  if (linkCheck) {
-    linkCheck.addEventListener('click', function() { checkWebUpdates(true); });
-  }
+  if (linkCheck) linkCheck.addEventListener('click', function() { checkWebUpdates(true); });
 
-  // Первоначальный запуск формы
-  document.getElementById('accidentRadio').setAttribute('data-val', 'no');
-  document.getElementById('talksRadio').setAttribute('data-val', 'no');
+  // --- ЗАПУСК ---
   restore();
   fillAutodatetime();
+
+  var evtType = new Event('change');
+  document.getElementById('f_type').dispatchEvent(evtType);
+  document.getElementById('f_ownertype').dispatchEvent(evtType);
+
   ensureState();
   renderChecks();
   fillInspSel();
@@ -2101,7 +2029,6 @@
   updateQueueInfo();
   setInterval(function(){ tryFlush(false); }, 60000);
 
-  // Фоновая проверка раз в 15 минут
   window.addEventListener('load', function() { checkWebUpdates(false); });
   setInterval(function() { checkWebUpdates(false); }, 15 * 60 * 1000);
 </script>
