@@ -413,14 +413,6 @@
     }
     .chip:active { background: #e2e8f0; }
 
-    /* Категория прав (автовыбор) */
-    .cat-hint {
-      font-size: 12px;
-      color: #2563eb;
-      margin-top: 4px;
-      font-weight: 600;
-    }
-
     /* --- НИЖНЯЯ ПАНЕЛЬ ДЕЙСТВИЙ --- */
     .actionbar {
       position: fixed;
@@ -476,7 +468,6 @@
 
     #btnNew { background: #e2e8f0; color: #334155; }
     #btnPdf { background: #eff6ff; color: #1d4ed8; border: 1.5px solid #bfdbfe; }
-    #btnShare { background: #fffbeb; color: #b45309; border: 1.5px solid #fde68a; }
     #btnSend {
       background: linear-gradient(135deg, #059669 0%, #047857 100%);
       color: #ffffff;
@@ -676,7 +667,10 @@
       </div>
     </div>
     <div class="row">
-      <label for="f_plate">Гос. номер</label>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+        <label for="f_plate" style="margin-bottom: 0;">Гос. номер</label>
+        <a href="https://portal.rosavtotransport.ru/check-grz" target="_blank" rel="noopener" style="font-size: 11.5px; font-weight: 700; color: #2563eb; text-decoration: none;" title="Проверить оснащение тахографом в реестре Росавтотранса">🔍 Тахограф (Росавтотранс) ↗</a>
+      </div>
       <input autocapitalize="characters" autocomplete="off" id="f_plate" placeholder="А000АА66" spellcheck="false" type="text">
     </div>
     <div class="row"><label for="f_model">Марка и модель ТС</label><input type="text" id="f_model"></div>
@@ -693,10 +687,27 @@
         <option value="self_propelled">Самоходная техника</option>
       </select>
     </div>
-    <div class="row">
-      <label for="f_vu">Водительское удостоверение / УТМ (серия, номер)</label>
-      <input type="text" id="f_vu">
-      <div class="cat-hint" id="catHint">Требуемая категория: B</div>
+    <div style="display: flex; gap: 8px; margin-bottom: 2px;">
+      <div style="flex: 1.2;">
+        <label for="f_vu_cat">Категория ВУ *</label>
+        <select id="f_vu_cat">
+          <option value="D">D (Автобус)</option>
+          <option value="B">B (Легковая / Такси)</option>
+          <option value="C">C (Грузовой)</option>
+          <option value="CE">CE (Грузовой с прицепом)</option>
+          <option value="DE">DE (Автобус сочлененный)</option>
+          <option value="Tb">Tb (Троллейбус)</option>
+          <option value="Tm">Tm (Трамвай)</option>
+          <option value="УТМ">УТМ (Тракторист-машинист)</option>
+        </select>
+      </div>
+      <div style="flex: 1;">
+        <label for="f_vu_exp">Стаж по категории (лет) *</label>
+        <input type="number" id="f_vu_exp" min="0" max="60" placeholder="Напр. 5" inputmode="numeric">
+      </div>
+    </div>
+    <div style="font-size: 11.5px; color: #64748b; line-height: 1.35; margin-bottom: 12px; padding: 3px 0;">
+      ℹ️ <em>Указывается водительский стаж именно по управляемой категории ТС, а не общий водительский стаж.</em>
     </div>
     <div class="row"><label for="f_ownertype">Собственник ТС</label>
       <select id="f_ownertype">
@@ -708,7 +719,14 @@
       </select>
     </div>
     <div class="row"><label id="f_ownername_label" for="f_ownername">Наименование собственника</label><input type="text" id="f_ownername"></div>
-    <div class="row"><label for="f_regplace">Место регистрации</label><input type="text" id="f_regplace" placeholder="Адрес регистрации"></div>
+    <div class="row">
+      <label for="f_regplace">Место регистрации по СТС (юр. лица, ИП или физ. лица)</label>
+      <input type="text" id="f_regplace" placeholder="Адрес регистрации по свидетельству о регистрации ТС">
+    </div>
+    <div class="row" id="rowTechCount">
+      <label for="f_techcount">За предприятием зарегистрировано транспортных средств</label>
+      <input type="number" id="f_techcount" min="0" inputmode="numeric" placeholder="Количество ТС на балансе предприятия">
+    </div>
   </section>
 
   <section id="sec2">
@@ -788,19 +806,6 @@
         <label for="f_talkcount">Количество профилактических визитов/бесед за текущий год</label>
         <input type="number" id="f_talkcount" min="0" inputmode="numeric">
       </div>
-      <div class="row" id="rowTechCount">
-        <label for="f_techcount">За предприятием зарегистрировано транспортных средств</label>
-        <input type="number" id="f_techcount" min="0" inputmode="numeric">
-      </div>
-    </div>
-
-    <div class="row">
-      <label for="f_pto">Адрес ПТО (документы и контроль)</label>
-      <input type="text" id="f_pto" value="—">
-    </div>
-    <div class="row">
-      <label for="f_email">Email получателя (необязательно)</label>
-      <input type="email" id="f_email" placeholder="inspector@mail.ru">
     </div>
 
     <details class="noprint">
@@ -835,14 +840,13 @@
 
 <div class="actionbar noprint">
   <div class="actionbar-buttons">
-    <button type="button" id="btnHistory" title="История актов" style="flex:0.4; background:#f1f5f9; border:1px solid #cbd5e1; color:#475569;">📚</button>
-    <button type="button" id="btnNew" style="flex:0.6;">➕ Новый</button>
-    <button type="button" id="btnPdf">📄 PDF</button>
-    <button type="button" id="btnShare">✉ Почта</button>
-    <button type="button" id="btnSend">☁ Отправить</button>
+    <button type="button" id="btnHistory" title="История актов" style="flex:0.35; background:#f1f5f9; border:1px solid #cbd5e1; color:#475569;">📚</button>
+    <button type="button" id="btnNew" style="flex:0.55;">➕ Новый</button>
+    <button type="button" id="btnPdf">📄 Создать акт в PDF</button>
+    <button type="button" id="btnSend">☁ Сохранить в таблицу</button>
   </div>
   <div class="app-version-bar" id="appVersion">
-    <span>Версия 2.3 (Smart PDF)</span>
+    <span>Версия 2.4 (Smart PDF)</span>
     <span class="ver-reload-link" id="linkQuickCheck" title="Проверить обновление">🔄</span>
   </div>
 </div>
@@ -864,7 +868,7 @@
   // ЗАДАЙТЕ ПАРОЛЬ ДЛЯ ВХОДА ИНСПЕКТОРА
   var SECRET_PASS = '1936';
   var AUTH_KEY = 'dtp_auth_session';
-  var APP_VERSION = '2.3.0';
+  var APP_VERSION = '2.4.0';
 
   var safeStorage = {
     get: function(k) { try { return localStorage.getItem(k); } catch(e) { return null; } },
@@ -905,7 +909,6 @@
     steer:      {label:'Рулевое управление и тормоза', article:'ч. 2 ст. 12.5 КоАП РФ', critical: true},
     tires:      {label:'Шины (протектор, сезонность)', article:'ч. 1 ст. 12.5 КоАП РФ'},
     tacho:      {label:'Тахограф', article:'ч. 1 ст. 11.23 КоАП РФ'},
-    plomb:      {label:'Пломбы тахографа', article:'ч. 1 ст. 11.23 КоАП РФ'},
     card:       {label:'Карта водителя', article:'ч. 1 ст. 11.23 КоАП РФ', alt:'Карта водителя отсутствует или не вставлена'},
     arshin:     {label:'Поверка тахографа (ФГИС «Аршин»)', article:'ч. 1 ст. 11.23 КоАП РФ'},
     rtio:       {label:'Соблюдение режима труда и отдыха (РТиО)', article:'ч. 3 ст. 11.23 КоАП РФ'},
@@ -917,7 +920,7 @@
     beacon:     {label:'Проблесковый маячок жёлтого (оранжевого) цвета', article:'ч. 3 ст. 12.23 КоАП РФ'},
     routemap:   {label:'Карта маршрута', article:'ч. 4 ст. 11.33 КоАП РФ', raport:true},
     lic:        {label:'Лицензия', article:'ч. 2 ст. 11.14.2 КоАП РФ'},
-    reg:        {label:'В реестре (наличие разрешения)', article:'ст. 14.1 КоАП РФ'},
+    reg:        {label:'В реестре (налиличие разрешения)', article:'ст. 14.1 КоАП РФ'},
     color:      {label:'Цветографическая схема легкового такси', article:'ч. 7 ст. 12.5 КоАП РФ'},
     osago_sp:   {label:'Полис ОСАГО (при скор. > 20 км/ч)', article:'ч. 2 ст. 12.37 КоАП РФ'},
     reg_gtn:    {label:'Регистрация в Гостехнадзоре (СРМ)', article:'ст. 12.1 КоАП РФ'},
@@ -957,12 +960,12 @@
 
   var COMMON = Object.freeze(['wl','med','mech','osago','to','steer','tires']);
   var SPEC = Object.freeze({
-    auto_bus:       ['tacho','plomb','card','arshin','rtio','exitAll'],
-    bus_kids:       ['tacho','plomb','card','arshin','rtio','exitAll','notify','plist','freight','beacon'],
+    auto_bus:       ['tacho','card','arshin','rtio','exitAll'],
+    bus_kids:       ['tacho','card','arshin','rtio','exitAll','notify','plist','freight','beacon'],
     bus_route:      ['exitAll','routemap','lic'],
     auto_light:     [],
     taxi:           ['reg','color'],
-    truck:          ['tacho','plomb','card','arshin','rtio'],
+    truck:          ['tacho','card','arshin','rtio'],
     trolley:        ['exitNoB'],
     tram:           ['exitNoB'],
     self_propelled: ['wl','med','mech','osago_sp','reg_gtn','plate_sp','tech_gtn','ktt_sp']
@@ -1039,7 +1042,7 @@
     return ids.concat(SPEC[type] || []);
   }
 
-  function blankCheck(){ return {s:'na', c:'', garage:'', base:'', to_exp:''}; }
+  function blankCheck(){ return {s:'na', c:'', garage:'', base:'', to_exp:'', pto:''}; }
 
   function ensureState(){
     var ids = idsFor(curType());
@@ -1077,7 +1080,10 @@
       if (cs.s === 'na' && cs.base) return 'Основание использования: ' + cs.base;
     }
     if (id === 'to' || id === 'tech_gtn') {
-      if (cs.to_exp) return (id === 'tech_gtn' ? 'ТО Гостехнадзора до: ' : 'ДК ЕАИСТО до: ') + formatDateRu(cs.to_exp);
+      var p = [];
+      if (cs.to_exp) p.push((id === 'tech_gtn' ? 'ТО Гостехнадзора до: ' : 'ДК ЕАИСТО до: ') + formatDateRu(cs.to_exp));
+      if (cs.pto) p.push('ПТО: ' + cs.pto);
+      return p.join('; ');
     }
     return '';
   }
@@ -1104,10 +1110,25 @@
       });
       h += '</div>';
       h += '<input type="text" class="cm" aria-label="Комментарий к пункту ' + esc(it.label) + '" placeholder="Комментарий (необязательно)" value="' + esc(cs.c) + '">';
-      var ex = checkExtra(id, cs);
-      if (ex) {
-        h += '<div class="extra-label">' + ex.label + ':</div>';
-        h += '<input type="' + (ex.type || 'text') + '" class="cm extra" data-x="' + ex.key + '" aria-label="' + esc(ex.label) + '" placeholder="' + (ex.placeholder || ex.label) + '" value="' + esc(cs[ex.key] || '') + '">';
+      if (id === 'to' && cs.s !== 'na') {
+        h += '<div class="extra-label">Срок действия ДК ЕАИСТО до:</div>';
+        h += '<input type="date" class="cm extra" data-x="to_exp" aria-label="Срок действия ДК" placeholder="дд.мм.гггг" value="' + esc(cs.to_exp || '') + '">';
+        h += '<div class="extra-label" style="margin-top:6px;">Пункт технического осмотра (ПТО):</div>';
+        h += '<input type="text" class="cm extra" data-x="pto" aria-label="Адрес ПТО" placeholder="Адрес или номер пункта ТО" value="' + esc(cs.pto || '') + '">';
+      } else if (id === 'tech_gtn' && cs.s !== 'na') {
+        h += '<div class="extra-label">Срок действия ТО Гостехнадзора до:</div>';
+        h += '<input type="date" class="cm extra" data-x="to_exp" aria-label="Срок действия ТО" placeholder="дд.мм.гггг" value="' + esc(cs.to_exp || '') + '">';
+        h += '<div class="extra-label" style="margin-top:6px;">Пункт ТО / Инспекция Гостехнадзора:</div>';
+        h += '<input type="text" class="cm extra" data-x="pto" aria-label="ПТО" placeholder="Адрес или подразделение Гостехнадзора" value="' + esc(cs.pto || '') + '">';
+      } else {
+        var ex = checkExtra(id, cs);
+        if (ex) {
+          h += '<div class="extra-label">' + ex.label + ':</div>';
+          h += '<input type="' + (ex.type || 'text') + '" class="cm extra" data-x="' + ex.key + '" aria-label="' + esc(ex.label) + '" placeholder="' + (ex.placeholder || ex.label) + '" value="' + esc(cs[ex.key] || '') + '">';
+        }
+      }
+      if (id === 'tacho') {
+        h += '<div style="margin-top:6px;"><a href="https://portal.rosavtotransport.ru/check-grz" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:4px; font-size:12px; font-weight:700; color:#1d4ed8; text-decoration:none; background:#eff6ff; border:1px solid #bfdbfe; border-radius:6px; padding:4px 8px;">🌐 Проверить оснащение на portal.rosavtotransport.ru ↗</a></div>';
       }
       if (locked) h += '<div class="locked-note">Личное пользование — «Не проверялось»</div>';
       h += '<div class="hint"></div>';
@@ -1248,7 +1269,6 @@
     if (!val('f_place')) missing.push('место ДТП');
     if (!val('f_plate')) missing.push('гос. номер');
     if (!val('f_model')) missing.push('марку и модель ТС');
-    if (!val('f_vu')) missing.push('серию и номер ВУ');
     if (!val('f_inspector')) missing.push('инспектора');
     return missing;
   }
@@ -1345,10 +1365,10 @@
     if (n > 0) {
       el.textContent = 'Очередь отправки: ' + n + ' акт(ов) ждут интернета';
       el.style.display = 'block';
-      btn.textContent = '☁ Отправить (' + n + ')';
+      btn.textContent = '☁ Сохранить в таблицу (' + n + ')';
     } else {
       el.style.display = 'none';
-      btn.textContent = '☁ Отправить';
+      btn.textContent = '☁ Сохранить в таблицу';
     }
   }
 
@@ -1450,8 +1470,6 @@
     modal.classList.add('active');
   }
 
-  document.getElementById('btnHistory').addEventListener('click', showHistoryModal);
-
   // --- Отправка и сброс ---
   function send() {
     var ep = val('f_endpoint').trim();
@@ -1472,7 +1490,7 @@
     }
 
     var btn = document.getElementById('btnSend');
-    btn.disabled = true; btn.textContent = 'Отправка…';
+    btn.disabled = true; btn.textContent = 'Сохранение…';
 
     deliver(p).then(function() {
       btn.disabled = false;
@@ -1497,7 +1515,6 @@
     });
     document.getElementById('f_type').value = 'auto_bus';
     document.getElementById('f_ownertype').value = 'org';
-    document.getElementById('f_pto').value = '—';
 
     var otherRow = document.getElementById('row_info_other');
     if (otherRow) otherRow.style.display = 'none';
@@ -1532,9 +1549,13 @@
     var timeVal = val('f_time');
     var sigBase64 = safeStorage.get(SIG_KEY);
 
+    var vuCat = val('f_vu_cat');
+    var vuExp = val('f_vu_exp');
+    var vuFullStr = 'категория: ' + esc(vuCat) + (vuExp ? ', стаж по категории: ' + esc(vuExp) + ' лет' : '');
+
     var rows = '';
     var num = 1;
-    var violItemsPDF = []; // Для итоговой сводки в PDF
+    var violItemsPDF = [];
 
     idsFor(curType()).forEach(function(id) {
       var it = ITEMS[id];
@@ -1554,7 +1575,6 @@
         itemLabel = esc(v.label);
         if (v.art) noteParts.unshift('<b>' + esc(v.art) + '</b>');
 
-        // Умное формирование итоговой сводки с описанием и штрафом
         if (!(id === 'color' && !v.art)) {
           var normKey = v.art ? v.art.replace(/\s+/g, '').toLowerCase() : '';
           var info = koapIndex[normKey];
@@ -1612,11 +1632,10 @@
         '<tr><td class="p-lbl">Место проведения проверки:</td><td>' + esc(val('f_place')) + '</td></tr>' +
         '<tr><td class="p-lbl">Транспортное средство:</td><td>' + esc(val('f_model')) + ' (тип: ' + esc(TYPES[curType()]) + ')</td></tr>' +
         '<tr><td class="p-lbl">Государственный рег. знак:</td><td><b>' + esc(val('f_plate').toUpperCase()) + '</b></td></tr>' +
-        '<tr><td class="p-lbl">Водительское удостоверение / УТМ:</td><td>' + esc(val('f_vu')) + '</td></tr>' +
+        '<tr><td class="p-lbl">Данные водителя:</td><td>' + vuFullStr + '</td></tr>' +
         '<tr><td class="p-lbl">Собственник ТС (категория):</td><td>' + esc(ownerKind) + '</td></tr>' +
         '<tr><td class="p-lbl">' + ownerLabel + '</td><td>' + esc(val('f_ownername') || '—') + '</td></tr>' +
-        '<tr><td class="p-lbl">Место регистрации ТС:</td><td>' + esc(val('f_regplace') || '—') + '</td></tr>' +
-        '<tr><td class="p-lbl">Пункт тех. осмотра (ПТО):</td><td>' + esc(val('f_pto') || '—') + '</td></tr>' +
+        '<tr><td class="p-lbl">Место регистрации по СТС:</td><td>' + esc(val('f_regplace') || '—') + '</td></tr>' +
       '</table>' +
 
       '<div class="p-section-title">Результаты проверки технического состояния и документации</div>' +
@@ -1625,7 +1644,6 @@
         '<tbody>' + rows + '</tbody>' +
       '</table>' +
 
-      // Блок итоговой сводки возвращен и сделан "умным"
       '<div class="p-section-title">Итоговая часть (выявленные нарушения)</div>' +
       '<div class="p-summary-text">' + violSummaryHtml + '</div>' +
 
@@ -1790,10 +1808,15 @@
   });
 
   document.getElementById('f_type').addEventListener('change', function(){
-    var catHint = document.getElementById('catHint');
-    if (catHint) {
-      var cType = this.value;
-      catHint.textContent = 'Требуемая категория: ' + (CAT_HINTS[cType] || 'Не определена');
+    var cType = this.value;
+    var vuCatSel = document.getElementById('f_vu_cat');
+    if (vuCatSel) {
+      if (cType === 'auto_bus' || cType === 'bus_kids' || cType === 'bus_route') vuCatSel.value = 'D';
+      else if (cType === 'auto_light' || cType === 'taxi') vuCatSel.value = 'B';
+      else if (cType === 'truck') vuCatSel.value = 'C';
+      else if (cType === 'self_propelled') vuCatSel.value = 'УТМ';
+      else if (cType === 'trolley') vuCatSel.value = 'Tb';
+      else if (cType === 'tram') vuCatSel.value = 'Tm';
     }
     ensureState(); renderChecks();
   });
@@ -1855,20 +1878,10 @@
     }, { enableHighAccuracy: true, timeout: 9000, maximumAge: 30000 });
   });
 
+  document.getElementById('btnHistory').addEventListener('click', showHistoryModal);
   document.getElementById('btnAllOk').addEventListener('click', markAllRemainingOk);
   document.getElementById('btnPdf').addEventListener('click', makePdf);
-  // Кнопку "Почта" теперь просто вызываем как PDF (и внутри Web2APK она работает как sharePdf)
-  var btnShare = document.getElementById('btnShare');
-  if (btnShare) {
-    btnShare.addEventListener('click', function(){
-      var m = validate();
-      if (m.length) { showMsg('Заполните: ' + m.join(', '), false); return; }
-      if (!warnUnchecked()) return;
-      saveHistoryLocal(); buildPrintContent();
-      var plate = val('f_plate').trim(); var email = val('f_email').trim();
-      if (typeof Website2APK !== 'undefined' && Website2APK.sharePdf) { Website2APK.sharePdf(plate, email); } else { window.print(); }
-    });
-  }
+  document.getElementById('btnSend').addEventListener('click', send);
 
   document.getElementById('btnNew').addEventListener('click', function(){
     if (!confirm('Начать новый акт? Текущие данные формы будут очищены.')) return;
