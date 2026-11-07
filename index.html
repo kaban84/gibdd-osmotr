@@ -656,7 +656,7 @@
     </div>
 
     <section id="sec1">
-        <h2>1. Общие данные</h2>
+        <h2>Общие данные</h2>
         <div class="row"><label for="f_date">Дата</label><input type="date" id="f_date"></div>
         <div class="row"><label for="f_time">Время</label><input type="time" id="f_time"></div>
         <div class="row">
@@ -920,7 +920,7 @@
       beacon:     {label:'Проблесковый маячок жёлтого (оранжевого) цвета', article:'ч. 3 ст. 12.23 КоАП РФ'},
       routemap:   {label:'Карта маршрута', article:'ч. 4 ст. 11.33 КоАП РФ', raport:true},
       lic:        {label:'Лицензия', article:'ч. 2 ст. 11.14.2 КоАП РФ'},
-      reg:        {label:'В реестре (налиличие разрешения)', article:'ст. 14.1 КоАП РФ'},
+      reg:        {label:'В реестре (наличие разрешения)', article:'ст. 14.1 КоАП РФ'},
       color:      {label:'Цветографическая схема легкового такси', article:'ч. 7 ст. 12.5 КоАП РФ'},
       osago_sp:   {label:'Полис ОСАГО (при скор. > 20 км/ч)', article:'ч. 2 ст. 12.37 КоАП РФ'},
       reg_gtn:    {label:'Регистрация в Гостехнадзоре (СРМ)', article:'ст. 12.1 КоАП РФ'},
@@ -1211,8 +1211,11 @@
 
       var bAcc = document.getElementById('blockAccidentAnalytics');
       var bInt = document.getElementById('blockInteragency');
+      var rTech = document.getElementById('rowTechCount');
+
       if (bAcc) bAcc.style.display = isPersonal() ? 'none' : 'block';
       if (bInt) bInt.style.display = isPersonal() ? 'none' : 'block';
+      if (rTech) rTech.style.display = isPersonal() ? 'none' : 'block';
 
       var rAcc = document.getElementById('rowAccCount');
       if (rAcc) rAcc.style.display = (document.getElementById('accidentRadio').getAttribute('data-val') === 'done') ? 'block' : 'none';
@@ -1255,8 +1258,8 @@
         violations_count: violatedArticles.length,
         violated_articles: violatedArticles.length ? violatedArticles.join('; ') : 'Нарушений не выявлено',
         accident_analysis: accDone ? 'Проводился' : 'Не проводился',
-        accident_count: accDone ? (val('f_acccount') || 0) : 0,
-        tech_count: isPersonal() ? 0 : (val('f_techcount') || 0)
+        accident_count: accDone ? (parseInt(val('f_acccount'), 10) || 0) : 0,
+        tech_count: isPersonal() ? 0 : (parseInt(val('f_techcount'), 10) || 0)
       };
     }
 
